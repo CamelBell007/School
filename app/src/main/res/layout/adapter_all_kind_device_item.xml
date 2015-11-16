@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context="camlebell.com.activity.SplashActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/device_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:gravity="center"
+            android:text="炒菜设备"
+            android:textColor="@color/slide_left_text"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/device_worker_status"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:layout_marginTop="3dp"
+            android:gravity="left"
+            android:text="工作中"
+            android:textColor="@color/slide_left_text"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/device_opreation_people"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:text="操作人 黎明"
+            android:textColor="@color/slide_left_text"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/work_status"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="正常"
+            android:textColor="@color/home_back"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/show_icon"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@mipmap/ic_launcher"
+             />
+    </LinearLayout>
+</LinearLayout>

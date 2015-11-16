@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context="camlebell.com.activity.SplashActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/device_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="left"
+            android:layout_marginLeft="15dp"
+            android:text="设备列表"
+            android:textColor="@color/slide_left_text"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/device_worker_status"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="运转情况"
+            android:textColor="@color/slide_left_text"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/device_opreation_people"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="操作人"
+            android:gravity="center"
+            android:textColor="@color/slide_left_text"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/work_status"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="状态"
+            android:textColor="@color/home_back"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+</LinearLayout>

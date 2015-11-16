@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="home_back">#138F81</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="driver_line">#E9E9E9</color>
+    <color name="status_ok">#AED687</color>
+    <color name="slide_left_text">#666666</color>
+    <color name="slide_driver_line">#FF6F42</color>
+    <color name="people_detail_text">#EAEAE8</color>
+    <color name="slide_show_driver_line">#CECECE</color>
+
+
+
+
+</resources>

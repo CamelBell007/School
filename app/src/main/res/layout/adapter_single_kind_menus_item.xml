@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="camlebell.com.activity.SplashActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:background="@color/white"
+        android:gravity="center">
+
+
+        <TextView
+            android:id="@+id/menu_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="7"
+            android:gravity="left"
+            android:layout_marginLeft="15dp"
+            android:text="视角一"
+            android:textSize="16sp"
+            android:textColor="@color/slide_left_text"
+            />
+        <ImageView
+            android:id="@+id/menu_menu"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@mipmap/ic_launcher"
+            android:visibility="visible"/>
+    </LinearLayout>
+</LinearLayout>

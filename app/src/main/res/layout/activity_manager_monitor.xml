@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:pagerSlide="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="camlebell.com.activity.ManagerMenuActivity"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/home_back"
+        android:minHeight="?attr/actionBarSize">
+
+        <TextView
+            android:id="@+id/home_action_title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:text="title"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"
+            android:textStyle="normal" />
+    </android.support.v7.widget.Toolbar>
+    <TextView
+        android:id="@+id/home_action_title_text"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="right|center_vertical"
+        android:paddingRight="15dp"
+        android:text="实时图像"
+        android:textColor="@color/slide_left_text"
+        android:background="@color/white"
+        android:textSize="18sp"
+        android:textStyle="normal" />
+    <ListView
+        android:id="@+id/manager_monitor_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:dividerHeight="0.5dp"
+        android:divider="@color/people_detail_text"
+        android:background="@color/people_detail_text">
+
+    </ListView>
+</LinearLayout>
