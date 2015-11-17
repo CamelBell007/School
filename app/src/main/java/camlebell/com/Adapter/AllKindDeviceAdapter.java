@@ -10,8 +10,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import camlebell.com.model.DeviceInfo;
-import camlebell.com.model.WorkInfo;
+import camlebell.com.model.DeviceListInfo;
 import camlebell.com.myapplication.R;
 
 
@@ -25,14 +24,14 @@ import camlebell.com.myapplication.R;
 public class AllKindDeviceAdapter extends BaseAdapter {
     private Context mContext;
 
-    private ArrayList<DeviceInfo> mWorkInfoList;
+    private ArrayList<DeviceListInfo.DeviceInfo> mWorkInfoList;
 
     public AllKindDeviceAdapter(Context context) {
         super();
         this.mContext = context;
     }
 
-    public AllKindDeviceAdapter(Context context, ArrayList<DeviceInfo> mWorkInfoList) {
+    public AllKindDeviceAdapter(Context context, ArrayList<DeviceListInfo.DeviceInfo> mWorkInfoList) {
         super();
         this.mContext = context;
         this.mWorkInfoList = mWorkInfoList;
@@ -88,10 +87,10 @@ public class AllKindDeviceAdapter extends BaseAdapter {
      * @param holder
      */
     public void bindView(ViewHolder holder,int position) {
-        holder.vDeviceName.setText(mWorkInfoList.get(position).deviceName);
-        holder.vDeviceWorkerStatus.setText(mWorkInfoList.get(position).workStatus);
-        holder.vDeviceOpreationPeople.setText(mWorkInfoList.get(position).opreationPeople);
-        holder.vDeviceStatus.setText(mWorkInfoList.get(position).heathStatus);
+        holder.vDeviceName.setText(mWorkInfoList.get(position).deviceTypeName);
+//        holder.vDeviceWorkerStatus.setText(mWorkInfoList.get(position).workStatus);
+//        holder.vDeviceOpreationPeople.setText(mWorkInfoList.get(position).opreationPeople);
+        holder.vDeviceStatus.setText(mWorkInfoList.get(position).status);
     }
 
     /**
@@ -102,6 +101,15 @@ public class AllKindDeviceAdapter extends BaseAdapter {
         public TextView vDeviceWorkerStatus;
         public TextView vDeviceOpreationPeople;//职位
         public TextView vDeviceStatus;//职位
+    }
+
+    /**
+     * 通知数据发生改变
+     * @param mWorkInfoList
+     */
+    public void setDataChange(ArrayList<DeviceListInfo.DeviceInfo> mWorkInfoList){
+       this.mWorkInfoList = mWorkInfoList;
+        notifyDataSetChanged();
     }
 
 }

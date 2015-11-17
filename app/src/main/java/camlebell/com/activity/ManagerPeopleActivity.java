@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import camlebell.com.Adapter.AllKindPeopleAdapter;
 import camlebell.com.base.ToolbarBaseActivity;
 import camlebell.com.manager.HttpManager;
-import camlebell.com.model.DeviceTypeInfo;
 import camlebell.com.model.PeopleTypeInfo;
 import camlebell.com.model.ResultInfo;
 import camlebell.com.model.WorkInfo;

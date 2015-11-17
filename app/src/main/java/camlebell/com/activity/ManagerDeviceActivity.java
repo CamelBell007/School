@@ -1,7 +1,6 @@
 package camlebell.com.activity;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -11,15 +10,15 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import camlebell.com.Adapter.AllKindDeviceAdapter;
-import camlebell.com.Adapter.AllKindPeopleAdapter;
+import camlebell.com.MyApplcation;
+import camlebell.com.Utils.Constants;
+import camlebell.com.base.BaseBean;
 import camlebell.com.base.ToolbarBaseActivity;
-import camlebell.com.manager.HttpManager;
-import camlebell.com.model.DeviceInfo;
-import camlebell.com.model.DeviceTypeInfo;
-import camlebell.com.model.ResultInfo;
-import camlebell.com.model.WorkInfo;
+import camlebell.com.model.DeviceListInfo;
 import camlebell.com.myapplication.R;
-import cn.yoho.yohobase.net.AbstractResponseListener;
+import camlebell.com.net.BaseAsyncHttp;
+import camlebell.com.net.HttpResponseHandler;
+import camlebell.com.net.PackagePostData;
 
 /**
  * @author sunyan
@@ -28,7 +27,7 @@ import cn.yoho.yohobase.net.AbstractResponseListener;
 public class ManagerDeviceActivity extends ToolbarBaseActivity {
     private ListView vDeviceKindsListView;
     private AllKindDeviceAdapter allKindDeviceAdapter;
-    private ArrayList<DeviceInfo> mDeviceInfoList;
+    private ArrayList<DeviceListInfo.DeviceInfo> mDeviceInfoList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,18 +46,9 @@ public class ManagerDeviceActivity extends ToolbarBaseActivity {
     @Override
     protected void iniData() {
         setTitle(R.string.mananger_device);
-        DeviceInfo workOne = new DeviceInfo("12315","炒菜设备","工作中","炒菜设备","操作人 王志远","正常");
-        DeviceInfo workTwo = new DeviceInfo("12335","消毒设备","工作中","消毒设备","操作人 王志远","正常");
-        DeviceInfo workThree = new DeviceInfo("12215","冷藏设备","工作中","冷藏设备","操作人 王志远","异常");
-        DeviceInfo workFour = new DeviceInfo("12313","温湿度仪","工作中","温湿度仪","操作人 王志远","正常");
-        mDeviceInfoList = new ArrayList<>();
-        mDeviceInfoList.add(workOne);
-        mDeviceInfoList.add(workTwo);
-        mDeviceInfoList.add(workThree);
-        mDeviceInfoList.add(workFour);
-
-        allKindDeviceAdapter = new AllKindDeviceAdapter(ManagerDeviceActivity.this,mDeviceInfoList);
+        allKindDeviceAdapter = new AllKindDeviceAdapter(ManagerDeviceActivity.this);
         vDeviceKindsListView.setAdapter(allKindDeviceAdapter);
+        getDeviceTypeList(MyApplcation.CURRENT_SCHOOL_ID);
     }
 
     @Override
@@ -67,7 +57,7 @@ public class ManagerDeviceActivity extends ToolbarBaseActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent();
-                intent.setClass(ManagerDeviceActivity.this,SingleKindDeviceListActivity.class);
+                intent.setClass(ManagerDeviceActivity.this, SingleKindDeviceListActivity.class);
                 startActivity(intent);
             }
         });
@@ -76,23 +66,34 @@ public class ManagerDeviceActivity extends ToolbarBaseActivity {
     /**
      * 设备型号列表
      */
-    private void getDeviceTypeList(String treeGradeId) {
 
-        HttpManager.getDeviceTypeInfo(treeGradeId, new AbstractResponseListener<ResultInfo<DeviceTypeInfo>>() {
-            @Override
-            public void onResponseStart() {
-            }
+    public void getDeviceTypeList(final String treeGradeId) {
+        String json = PackagePostData.deviceTypeList(treeGradeId);
 
-            @Override
-            public void onResponseSuccess(ResultInfo<DeviceTypeInfo> message) {
-                super.onResponseSuccess(message);
+        BaseAsyncHttp.postUrlEntity(Constants.BASE_URL, "",
+                json, new HttpResponseHandler(
+                        DeviceListInfo.class, this) {
+                    @Override
+                    public void uiSuccess(BaseBean resp) {
+                DeviceListInfo bean = (DeviceListInfo) resp;
+                        mDeviceInfoList = bean.detail.dataList;
+                        allKindDeviceAdapter.setDataChange(mDeviceInfoList);
+                    }
 
-            }
+                    @Override
+                    public void uiFail(BaseBean resp) {
+                        Toast.makeText(ManagerDeviceActivity.this, resp.resultNote, Toast.LENGTH_SHORT)
+                                .show();
+                    }
 
-            @Override
-            public void onResponseFailed(String reason) {
-                Toast.makeText(ManagerDeviceActivity.this, reason, Toast.LENGTH_SHORT).show();
-            }
-        });
+                    @Override
+                    public void uiStart() {
+                    }
+
+                    @Override
+                    public void uiFinish() {
+                    }
+
+                });
     }
 }

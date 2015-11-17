@@ -1,28 +1,20 @@
 package camlebell.com.activity;
 
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
-import android.util.TypedValue;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import camlebell.com.Adapter.AllKindDeviceAdapter;
-import camlebell.com.Adapter.MenuViewPagerAdapter;
 import camlebell.com.Adapter.SingleKindDeviceAdapter;
 import camlebell.com.base.ToolbarBaseActivity;
 import camlebell.com.fragment.DrawHomeFragment;
 import camlebell.com.manager.HttpManager;
 import camlebell.com.model.DeviceInfo;
-import camlebell.com.model.DeviceTypeInfo;
 import camlebell.com.model.ResultInfo;
 import camlebell.com.myapplication.R;
-import camlebell.com.widget.PagerSlidingTabStrip;
 import cn.yoho.yohobase.net.AbstractResponseListener;
 
 /**

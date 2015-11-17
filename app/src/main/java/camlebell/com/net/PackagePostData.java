@@ -118,6 +118,23 @@ public class PackagePostData {
         }
     }
 
+    /**
+     * 设备型号列表
+     */
+    public static String deviceTypeList(String treeGradeId) {
+        JSONObject root = new JSONObject();
+        JSONObject parameters = new JSONObject();
+        try {
+            root.put("cmd", "deviceTypeList");
+            root.put("params", parameters);
+            parameters.put("treeGradeId", treeGradeId);
+            return setPages(root, 10, 1);
+        } catch (JSONException e) {
+
+            e.printStackTrace();
+            return null;
+        }
+    }
 
 
 
