@@ -71,7 +71,7 @@ public class HttpManager {
      * 登陆请求
      * @param listener
      */
-    public static void loginRequest(String userName,String passwd,String appName,final IResponseListener<ResultInfo<String>> listener){
+    public static void loginRequest(String userName,String passwd,final IResponseListener<ResultInfo<String>> listener){
         LoginRequest request = new LoginRequest(userName,passwd);
         Map<String,String> params = request.getParamsMap();
 

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 /**
  * Created by Administrator on 2015/11/10.
  */
-public class DishInfo {
+public class    DishInfo {
     //这3个没用了
     public String menuId;
     public String menuName;//设备名称

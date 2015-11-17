@@ -5,10 +5,14 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import camlebell.com.MyApplcation;
+import camlebell.com.Utils.TimeUtils;
 import camlebell.com.activity.ExceptionMessageActivity;
 import camlebell.com.activity.ManagerDeviceActivity;
 import camlebell.com.activity.ManagerMenuActivity;
@@ -37,6 +41,26 @@ public class DrawHomeFragment extends BaseFragment {
     private LinearLayout vManagerMonitor;
     private LinearLayout vManagerOrder;
 
+    private ImageView vLastDayImage;
+    private ImageView vNextDayImage;
+
+    private TextView vYearText;
+    private TextView vMonthText;
+
+    private TextView vBigMeatText;
+    private TextView vSmallMeatText;
+    private TextView vVegeText;
+    private TextView vFruitText;
+    private TextView vSoupText;
+    private TextView vRiceText;
+
+    private TextView vDeviceWorkStatusText;
+    private TextView vDeviceStatusText;
+    private TextView vDevicePeoPleText;
+    private TextView vPeoPleWorkStatusText;
+    private TextView vPeoPleStatusText;
+    private TextView vPeoPlePeoPleText;
+
 
     private String mParam1;
     private String mParam2;
@@ -45,14 +69,6 @@ public class DrawHomeFragment extends BaseFragment {
 
     private MyClickListener myClickListener;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment DrawHomeFragment.
-     */
     public static DrawHomeFragment newInstance(String param1, String param2) {
         DrawHomeFragment fragment = new DrawHomeFragment();
         Bundle args = new Bundle();
@@ -109,6 +125,7 @@ public class DrawHomeFragment extends BaseFragment {
     @Override
     protected void initData() {
         myClickListener = new MyClickListener();
+        getDayMenuRequest(TimeUtils.getNowDate(), MyApplcation.CURRENT_SCHOOL_ID);
     }
 
     @Override
@@ -119,6 +136,23 @@ public class DrawHomeFragment extends BaseFragment {
         vManagerMeun = findView(R.id.manager_menu_layout);
         vManagerMonitor = findView(R.id.manager_monitor_layout);
         vManagerOrder = findView(R.id.manager_order_layout);
+
+        vLastDayImage = findView(R.id.last_day_image);
+        vNextDayImage = findView(R.id.next_day_image);
+
+        vBigMeatText = findView(R.id.day_menu_big_meat_text);
+        vSmallMeatText = findView(R.id.day_menu_small_meat_text);
+        vVegeText = findView(R.id.day_menu_vege_meat_text);
+        vFruitText = findView(R.id.day_menu_fruit_text);
+        vSoupText = findView(R.id.day_menu_soup_text);
+        vRiceText = findView(R.id.day_menu_rice_text);
+
+        vDeviceWorkStatusText = findView(R.id.device_work_status_text);
+        vDeviceStatusText = findView(R.id.device_status_text);
+        vDevicePeoPleText = findView(R.id.device_people_text);
+        vPeoPleWorkStatusText = findView(R.id.people_work_status_text);
+        vPeoPleStatusText = findView(R.id.people_status_text);
+        vPeoPlePeoPleText = findView(R.id.people_people_text);
     }
 
 
@@ -138,6 +172,8 @@ public class DrawHomeFragment extends BaseFragment {
             public void onResponseSuccess(ResultInfo<KitchenStatusInfo> model) {
                 super.onResponseSuccess(model);
                 KitchenStatusInfo kitchenStatusInfo = (KitchenStatusInfo) model.getInfo();
+                vDeviceStatusText.setText(kitchenStatusInfo.deviceStatus);
+                vPeoPleStatusText.setText(kitchenStatusInfo.deviceStatus);
             }
 
             @Override
@@ -162,7 +198,6 @@ public class DrawHomeFragment extends BaseFragment {
             @Override
             public void onResponseSuccess(ResultInfo<DishInfo> model) {
                 super.onResponseSuccess(model);
-                ArrayList<DishInfo> dishInfos = (ArrayList<DishInfo>)model.getListInfo();
             }
 
             @Override
