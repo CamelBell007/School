@@ -42,10 +42,15 @@ public class LoginRequest extends BaseRequest {
 	@Override
 	protected Object initContent() throws JSONException {
 		JSONObject request = new JSONObject();
+		JSONObject params = new JSONObject();
+
 		try {
-			request.put("userName", userName);
-			request.put("password", password);
-			request.put("appName", appName);
+			params.put("userName", userName);
+			params.put("password", password);
+			params.put("appName", appName);
+
+			request.put("cmd",Constants.REQUEST_NAME.LOGIN);
+			request.put("params",params.toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -53,7 +58,7 @@ public class LoginRequest extends BaseRequest {
 	}
 
 	public String getUrl() {
-		return Constants.BASE_URL+Constants.REQUEST_NAME.LOGIN;
+		return Constants.BASE_URL;
 	}
 
 	@Override

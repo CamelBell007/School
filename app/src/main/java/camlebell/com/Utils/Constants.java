@@ -5,7 +5,7 @@ package camlebell.com.Utils;
  * 所有的静态变量
  */
 public class Constants {
-    public static final String BASE_URL = "";
+    public static final String BASE_URL = "http://nj.pansum.net/pansum/api/";
 
     /**
      * 接口名称
