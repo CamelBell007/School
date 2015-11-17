@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -90,12 +91,24 @@ public abstract class BaseRequest implements Request {
 
     /**
      * 获取post请求相关参数
+     *
      * @return
      */
-    public Map<String,String> getParamsMap(){
+    public Map<String, String> getParamsMap() {
         initRequest();
-        Map<String,String> params = new HashMap<>();
-        params.put("parameters",mRequest.toString());
+        Map<String, String> params = new HashMap<>();
+        Iterator<String> keys = mRequest.keys();
+
+        try {
+            while (keys.hasNext()) {
+                String key = keys.next();
+                params.put(key, mRequest.getString(key  ));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+//        params.put("parameters",mRequest.toString());
         return params;
     }
 

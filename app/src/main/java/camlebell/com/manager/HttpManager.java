@@ -95,7 +95,7 @@ public class HttpManager {
     }
 
     /**
-     * 登陆请求
+     * 修改密码
      * @param listener
      */
     public static void changePassWordRequest(String userName,String oldPassword,

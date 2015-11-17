@@ -45,9 +45,12 @@ public class LoginRequest extends BaseRequest {
 		JSONObject params = new JSONObject();
 
 		try {
-			params.put("userName", userName);
-			params.put("password", password);
-			params.put("appName", appName);
+//			params.put("userName", userName);
+//			params.put("password", password);
+//			params.put("appName", appName);
+			params.put("userName", "test");
+			params.put("password", "000000");
+			params.put("appName", "wisdomKitchen_SCHOOL");
 
 			request.put("cmd",Constants.REQUEST_NAME.LOGIN);
 			request.put("params",params.toString());

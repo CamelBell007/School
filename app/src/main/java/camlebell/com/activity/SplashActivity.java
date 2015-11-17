@@ -71,6 +71,8 @@ public class SplashActivity extends Activity {
         MyLoginClickListener loginClickListener = new MyLoginClickListener();
         vSchoolInputText.setOnClickListener(loginClickListener);
         vLoginButton.setOnClickListener(loginClickListener);
+
+        loginRequest("","","");
     }
 
     /**
