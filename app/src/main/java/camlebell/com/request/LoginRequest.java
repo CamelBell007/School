@@ -7,6 +7,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import camlebell.com.MyApplcation;
 import camlebell.com.Utils.Constants;
 import camlebell.com.model.ChannelInfo;
 import camlebell.com.model.ResultInfo;
@@ -28,10 +29,10 @@ public class LoginRequest extends BaseRequest {
 
 	}
 
-	public LoginRequest(String userName, String password, String appName) {
+	public LoginRequest(String userName, String password) {
 		this.userName = userName;
 		this.password = password;
-		this.appName = appName;
+//		this.appName = appName;
 	}
 
 	@Override
@@ -45,12 +46,9 @@ public class LoginRequest extends BaseRequest {
 		JSONObject params = new JSONObject();
 
 		try {
-//			params.put("userName", userName);
-//			params.put("password", password);
-//			params.put("appName", appName);
-			params.put("userName", "test");
-			params.put("password", "000000");
-			params.put("appName", "wisdomKitchen_SCHOOL");
+			params.put("userName", userName);
+			params.put("password", password);
+			params.put("appName", MyApplcation.APP_NAME);
 
 			request.put("cmd",Constants.REQUEST_NAME.LOGIN);
 			request.put("params",params.toString());

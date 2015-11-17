@@ -72,7 +72,7 @@ public class HttpManager {
      * @param listener
      */
     public static void loginRequest(String userName,String passwd,String appName,final IResponseListener<ResultInfo<String>> listener){
-        LoginRequest request = new LoginRequest(userName,passwd,appName);
+        LoginRequest request = new LoginRequest(userName,passwd);
         Map<String,String> params = request.getParamsMap();
 
         YohoRequest yohoRequest = new YohoRequest(Decoder.LOGIN, request.getUrl(), params, new Response.Listener<BaseModel>() {

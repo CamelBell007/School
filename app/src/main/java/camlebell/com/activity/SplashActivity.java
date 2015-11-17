@@ -72,7 +72,6 @@ public class SplashActivity extends Activity {
         vSchoolInputText.setOnClickListener(loginClickListener);
         vLoginButton.setOnClickListener(loginClickListener);
 
-        loginRequest("","","");
     }
 
     /**
@@ -94,7 +93,7 @@ public class SplashActivity extends Activity {
     /**
      * 请求登陆
      */
-    private void loginRequest(String userName, String passwd, String appName) {
+    private void loginRequest(String userName, String passwd) {
 
         HttpManager.loginRequest(userName, passwd, appName, new AbstractResponseListener< ResultInfo< String >>() {
             @Override
@@ -130,21 +129,16 @@ public class SplashActivity extends Activity {
                 case R.id.login_model_login_button:
                     mUserName = vUserNameEdit.getText().toString().trim();
                     mPassword = vPasswordEdit.getText().toString().trim();
-//FIXME 调试接口打开使用
-//                    if(StrUtil.isEmpty(mUserName)){
-//                        Toast.makeText(SplashActivity.this, "请输入用户名", Toast.LENGTH_SHORT).show();
-//                        return;
-//                    }
-//
-//                    if(StrUtil.isEmpty(mPassword)){
-//                        Toast.makeText(SplashActivity.this, "请输入密码", Toast.LENGTH_SHORT).show();
-//                        return;
-//                    }
-//                    loginRequest(mUserName, mPassword, appName);
-                    Intent intent = new Intent();
-                    intent.setClass(SplashActivity.this,HomeActivity.class);
-                    startActivity(intent);
-                    SplashActivity.this.finish();
+                    if(StrUtil.isEmpty(mUserName)){
+                        Toast.makeText(SplashActivity.this, "请输入用户名", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    if(StrUtil.isEmpty(mPassword)){
+                        Toast.makeText(SplashActivity.this, "请输入密码", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    loginRequest(mUserName, mPassword);
                     break;
                 default:
                     break;

@@ -46,6 +46,8 @@ public class MyApplcation extends Application {
 	public static int SCREEN_H = 0;
 
 	public static int SCREEN_W = 0;
+
+	public static final String APP_NAME = "wisdomKitchen_SCHOOL";
 	/**
 	 * PPI
 	 */
