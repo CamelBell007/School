@@ -136,7 +136,24 @@ public class PackagePostData {
         }
     }
 
+    /**
+     * 设备列表
+     */
+    public static String deviceList(String treeGradeId,String deviceTypeId) {
+        JSONObject root = new JSONObject();
+        JSONObject parameters = new JSONObject();
+        try {
+            root.put("cmd", "deviceList");
+            root.put("params", parameters);
+            parameters.put("treeGradeId", treeGradeId);
+            parameters.put("deviceTypeId", deviceTypeId);
+            return setPages(root, 10, 1);
+        } catch (JSONException e) {
 
+            e.printStackTrace();
+            return null;
+        }
+    }
 
 
 }

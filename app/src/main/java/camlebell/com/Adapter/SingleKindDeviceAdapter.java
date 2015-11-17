@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import camlebell.com.model.DeviceDetailInfo;
 import camlebell.com.model.DeviceInfo;
 import camlebell.com.myapplication.R;
 
@@ -26,14 +27,14 @@ import camlebell.com.myapplication.R;
 public class SingleKindDeviceAdapter extends BaseAdapter {
     private Context mContext;
 
-    private ArrayList<DeviceInfo> mWorkInfoList;
+    private ArrayList<DeviceDetailInfo.DeviceDetail> mWorkInfoList;
 
     public SingleKindDeviceAdapter(Context context) {
         super();
         this.mContext = context;
     }
 
-    public SingleKindDeviceAdapter(Context context, ArrayList<DeviceInfo> mContentInfoList) {
+    public SingleKindDeviceAdapter(Context context, ArrayList<DeviceDetailInfo.DeviceDetail> mContentInfoList) {
         super();
         this.mContext = context;
         this.mWorkInfoList = mContentInfoList;
@@ -91,9 +92,9 @@ public class SingleKindDeviceAdapter extends BaseAdapter {
      */
     public void bindView(ViewHolder holder,int position) {
         holder.vDeviceName.setText(mWorkInfoList.get(position).deviceName);
-        holder.vDeviceWorkerStatus.setText(mWorkInfoList.get(position).workStatus);
-        holder.vDeviceOpreationPeople.setText(mWorkInfoList.get(position).opreationPeople);
-        holder.vDeviceStatus.setText(mWorkInfoList.get(position).heathStatus);
+//        holder.vDeviceWorkerStatus.setText(mWorkInfoList.get(position).workStatus);
+//        holder.vDeviceOpreationPeople.setText(mWorkInfoList.get(position).opreationPeople);
+        holder.vDeviceStatus.setText(mWorkInfoList.get(position).status);
     }
 
     /**
@@ -104,6 +105,15 @@ public class SingleKindDeviceAdapter extends BaseAdapter {
         public TextView vDeviceWorkerStatus;
         public TextView vDeviceOpreationPeople;//职位
         public TextView vDeviceStatus;//职位
+    }
+
+    /**
+     * data change
+     * @param mWorkInfoList
+     */
+    public void setDataChange(ArrayList<DeviceDetailInfo.DeviceDetail> mWorkInfoList){
+        this.mWorkInfoList = mWorkInfoList;
+        notifyDataSetChanged();
     }
 
 }

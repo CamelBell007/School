@@ -56,8 +56,10 @@ public class ManagerDeviceActivity extends ToolbarBaseActivity {
         vDeviceKindsListView.setOnItemClickListener(new ListView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                DeviceListInfo.DeviceInfo info = (DeviceListInfo.DeviceInfo)allKindDeviceAdapter.getItem(position);
                 Intent intent = new Intent();
                 intent.setClass(ManagerDeviceActivity.this, SingleKindDeviceListActivity.class);
+                intent.putExtra("deviceTypeId",info.deviceTypeId);
                 startActivity(intent);
             }
         });
