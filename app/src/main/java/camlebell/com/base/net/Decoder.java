@@ -9,7 +9,6 @@ import camlebell.com.request.DishRequest;
 import camlebell.com.request.DishTypeRequest;
 import camlebell.com.request.GetChannelListRequest;
 import camlebell.com.request.GoodNutritionRequest;
-import camlebell.com.request.KitchenStatusRequest;
 import camlebell.com.request.LoginRequest;
 import camlebell.com.request.PeopleRequest;
 import camlebell.com.request.PeopleTypeRequest;
@@ -66,11 +65,6 @@ public class Decoder implements IDecoder<BaseModel> {
                     DayMenuRequest request = new DayMenuRequest();
                     request.setResponse(jsonString);
                     return request.getDayMenuList();
-                }
-                case KITCHEN_STATUS:{
-                    KitchenStatusRequest request = new KitchenStatusRequest();
-                    request.setResponse(jsonString);
-                    return request.getKitchenStatus();
                 }
 
                 case DEVICE_TYPE_LIST:{

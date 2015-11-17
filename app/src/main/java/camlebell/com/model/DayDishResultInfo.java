@@ -12,7 +12,11 @@ import camlebell.com.base.BaseBean;
 public class DayDishResultInfo extends BaseBean {
 
     public int totalRecordNum;
-    public ArrayList<DayDishInfo> dataList;
+    public DayDishList detail;
+
+    public class DayDishList{
+        public ArrayList<DayDishInfo> dataList;
+    }
 
     public class DayDishInfo {
         public String dishId;

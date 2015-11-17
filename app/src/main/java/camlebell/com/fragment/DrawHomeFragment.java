@@ -8,27 +8,35 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import camlebell.com.MyApplcation;
+import camlebell.com.Utils.Constants;
 import camlebell.com.Utils.TimeUtils;
 import camlebell.com.activity.ExceptionMessageActivity;
+import camlebell.com.activity.HomeActivity;
 import camlebell.com.activity.ManagerDeviceActivity;
 import camlebell.com.activity.ManagerMenuActivity;
 import camlebell.com.activity.ManagerMonitorActivity;
 import camlebell.com.activity.ManagerPeopleActivity;
+import camlebell.com.base.BaseBean;
 import camlebell.com.base.BaseFragment;
 import camlebell.com.manager.HttpManager;
+import camlebell.com.model.DayDishResultInfo;
 import camlebell.com.model.KitchenStatusInfo;
 import camlebell.com.model.DishInfo;
 import camlebell.com.model.ResultInfo;
 import camlebell.com.myapplication.R;
+import camlebell.com.net.BaseAsyncHttp;
+import camlebell.com.net.HttpResponseHandler;
+import camlebell.com.net.PackagePostData;
 import cn.yoho.yohobase.net.AbstractResponseListener;
 
 /**
  * @author sunyan
- * 侧边栏框架中的主界面
+ *         侧边栏框架中的主界面
  */
 public class DrawHomeFragment extends BaseFragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -126,6 +134,7 @@ public class DrawHomeFragment extends BaseFragment {
     protected void initData() {
         myClickListener = new MyClickListener();
         getDayMenuRequest(TimeUtils.getNowDate(), MyApplcation.CURRENT_SCHOOL_ID);
+        getKitchenStatus(MyApplcation.CURRENT_SCHOOL_ID);
     }
 
     @Override
@@ -159,53 +168,111 @@ public class DrawHomeFragment extends BaseFragment {
     /**
      * 人员、设备状态接口
      */
+
     private void getKitchenStatus(String treeGradeId) {
+        String json = PackagePostData.kitchenStatus(treeGradeId);
 
-        HttpManager.getKitchenStatusRequest(treeGradeId, new AbstractResponseListener<ResultInfo<KitchenStatusInfo>>() {
+        BaseAsyncHttp.postUrlEntity(Constants.BASE_URL, "",
+                json, new HttpResponseHandler(
+                        KitchenStatusInfo.class, getActivity()) {
+                    @Override
+                    public void uiSuccess(BaseBean resp) {
+                        KitchenStatusInfo info = (KitchenStatusInfo)resp;
+                        if(info!=null){
+                            if("0".equals(info.detail.deviceStatus)){
+                                vDeviceStatusText.setText("不正常");
+                            }else{
+                                vDeviceStatusText.setText("正常");
+                            }
+                            if("0".equals(info.detail.peopleStatus)){
+                                vPeoPleStatusText.setText("不正常");
+                            }else{
+                                vPeoPleStatusText.setText("正常");
+                            }
+                        }
 
-            @Override
-            public void onResponseStart() {
+                    }
 
-            }
+                    @Override
+                    public void uiFail(BaseBean resp) {
+                        Toast.makeText(getActivity(), resp.resultNote, Toast.LENGTH_SHORT)
+                                .show();
+                    }
 
-            @Override
-            public void onResponseSuccess(ResultInfo<KitchenStatusInfo> model) {
-                super.onResponseSuccess(model);
-                KitchenStatusInfo kitchenStatusInfo = (KitchenStatusInfo) model.getInfo();
-                vDeviceStatusText.setText(kitchenStatusInfo.deviceStatus);
-                vPeoPleStatusText.setText(kitchenStatusInfo.deviceStatus);
-            }
+                    @Override
+                    public void uiStart() {
+                    }
 
-            @Override
-            public void onResponseFailed(String reason) {
+                    @Override
+                    public void uiFinish() {
+                    }
 
-            }
-        });
+                });
     }
 
     /**
      * 每日菜单请求数据
      */
-    private void getDayMenuRequest(String day,String treeGradeId) {
+    private void getDayMenuRequest(String day, String treeGradeId) {
+        String json = PackagePostData.dayMenu(day, treeGradeId);
 
-        HttpManager.dayMenuRequest(day, treeGradeId,  new AbstractResponseListener<ResultInfo<DishInfo>>() {
+        BaseAsyncHttp.postUrlEntity(Constants.BASE_URL, "",
+                json, new HttpResponseHandler(
+                        DayDishResultInfo.class, getActivity()) {
+                    @Override
+                    public void uiSuccess(BaseBean resp) {
+                        DayDishResultInfo info = (DayDishResultInfo)resp;
+                        if(info!=null){
+                            ArrayList<DayDishResultInfo.DayDishInfo> dishs = info.detail.dataList;
+                            vBigMeatText.setText(dishs.get(0).good);
+                            vSmallMeatText.setText(dishs.get(1).good);
+                            vVegeText.setText(dishs.get(2).good);
+//                        vFruitText.setText(dishs.get(3).good);
+                            vSoupText.setText(dishs.get(3).good);
+                            vRiceText.setText(dishs.get(4).good);
+                        }else{
+                            Toast.makeText(getActivity(), resp.resultNote, Toast.LENGTH_SHORT)
+                                    .show();
+                        }
 
-            @Override
-            public void onResponseStart() {
+                    }
 
-            }
+                    @Override
+                    public void uiFail(BaseBean resp) {
+                        Toast.makeText(getActivity(), resp.resultNote, Toast.LENGTH_SHORT)
+                                .show();
+                    }
 
-            @Override
-            public void onResponseSuccess(ResultInfo<DishInfo> model) {
-                super.onResponseSuccess(model);
-            }
+                    @Override
+                    public void uiStart() {
+                    }
 
-            @Override
-            public void onResponseFailed(String reason) {
+                    @Override
+                    public void uiFinish() {
+                    }
 
-            }
-        });
+                });
     }
+
+
+//        HttpManager.dayMenuRequest(day, treeGradeId,  new AbstractResponseListener<ResultInfo<DishInfo>>() {
+//
+//            @Override
+//            public void onResponseStart() {
+//
+//            }
+//
+//            @Override
+//            public void onResponseSuccess(ResultInfo<DishInfo> model) {
+//                super.onResponseSuccess(model);
+//            }
+//
+//            @Override
+//            public void onResponseFailed(String reason) {
+//
+//            }
+//        });
+//    }
 
 
     /**

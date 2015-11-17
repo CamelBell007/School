@@ -81,6 +81,43 @@ public class PackagePostData {
         }
     }
 
+    /**
+     * 每日菜单接口
+     */
+    public static String dayMenu(String day, String treeGradeId) {
+        JSONObject root = new JSONObject();
+        JSONObject parameters = new JSONObject();
+        try {
+            root.put("cmd", "dayMenu");
+            root.put("params", parameters);
+            parameters.put("day", day);
+            parameters.put("treeGradeId", treeGradeId);
+            return setPages(root, 10, 1);
+        } catch (JSONException e) {
+
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * 人员、设备状态接口
+     */
+    public static String kitchenStatus(String treeGradeId) {
+        JSONObject root = new JSONObject();
+        JSONObject parameters = new JSONObject();
+        try {
+            root.put("cmd", "kitchenStatus");
+            root.put("params", parameters);
+            parameters.put("treeGradeId", treeGradeId);
+            return setPages(root, 10, 1);
+        } catch (JSONException e) {
+
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 
 
 
