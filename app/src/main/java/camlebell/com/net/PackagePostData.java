@@ -155,5 +155,43 @@ public class PackagePostData {
         }
     }
 
+    /**
+     * 人员分类列表
+     */
+    public static String peopleTypeList(String treeGradeId) {
+        JSONObject root = new JSONObject();
+        JSONObject parameters = new JSONObject();
+        try {
+            root.put("cmd", "peopleTypeList");
+            root.put("params", parameters);
+            parameters.put("treeGradeId", treeGradeId);
+            return setPages(root, 10, 1);
+        } catch (JSONException e) {
+
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * 人员列表
+     */
+    public static String peopleList(String treeGradeId,String peopleTypeId) {
+        JSONObject root = new JSONObject();
+        JSONObject parameters = new JSONObject();
+        try {
+            root.put("cmd", "peopleList");
+            root.put("params", parameters);
+            parameters.put("treeGradeId", treeGradeId);
+            parameters.put("peopleTypeId", peopleTypeId);
+
+            return setPages(root, 10, 1);
+        } catch (JSONException e) {
+
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 
 }

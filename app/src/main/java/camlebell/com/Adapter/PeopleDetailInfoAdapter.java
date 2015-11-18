@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import camlebell.com.model.PeopleDetailInfo;
 import camlebell.com.model.WorkInfo;
 import camlebell.com.myapplication.R;
 
@@ -26,14 +27,14 @@ import camlebell.com.myapplication.R;
 public class PeopleDetailInfoAdapter extends BaseAdapter {
     private Context mContext;
 
-    private ArrayList<WorkInfo> mWorkInfoList;
+    private ArrayList<PeopleDetailInfo.PeopleDetail> mWorkInfoList;
 
     public PeopleDetailInfoAdapter(Context context) {
         super();
         this.mContext = context;
     }
 
-    public PeopleDetailInfoAdapter(Context context, ArrayList<WorkInfo> mWorkInfoList) {
+    public PeopleDetailInfoAdapter(Context context, ArrayList<PeopleDetailInfo.PeopleDetail> mWorkInfoList) {
         super();
         this.mContext = context;
         this.mWorkInfoList = mWorkInfoList;
@@ -102,15 +103,15 @@ public class PeopleDetailInfoAdapter extends BaseAdapter {
      * @param holder
      */
     public void bindView(final ViewHolder holder,int position) {
-        holder.vJobName.setText(mWorkInfoList.get(position).jobName);
-        holder.vWorkerName.setText(mWorkInfoList.get(position).workName);
-        holder.vWorkStartTime.setText(mWorkInfoList.get(position).earlyWorkTime);
-        holder.vBodyTem.setText(mWorkInfoList.get(position).boyTem);
+        holder.vJobName.setText(mWorkInfoList.get(position).position);
+        holder.vWorkerName.setText(mWorkInfoList.get(position).name);
+//        holder.vWorkStartTime.setText(mWorkInfoList.get(position).certificatetime);
+//        holder.vBodyTem.setText(mWorkInfoList.get(position).boyTem);
 
-        holder.vWorkId.setText(mWorkInfoList.get(position).workId);
-        holder.vWorkTele.setText(mWorkInfoList.get(position).telePhone);
+        holder.vWorkId.setText(mWorkInfoList.get(position).id);
+//        holder.vWorkTele.setText(mWorkInfoList.get(position).telePhone);
         holder.vWorkAddress.setText(mWorkInfoList.get(position).address);
-        holder.vWorkCardData.setText(mWorkInfoList.get(position).cardUsedData);
+        holder.vWorkCardData.setText(mWorkInfoList.get(position).certificatetime);
 
 
         holder.vShowIcon.setOnClickListener(new View.OnClickListener(){
@@ -142,6 +143,11 @@ public class PeopleDetailInfoAdapter extends BaseAdapter {
         public TextView vWorkAddress;//职位
         public TextView vWorkCardData;//职位
 
+    }
+
+    public void setDataChange(ArrayList<PeopleDetailInfo.PeopleDetail> mWorkInfoList){
+        this.mWorkInfoList = mWorkInfoList;
+        notifyDataSetChanged();
     }
 
 }
