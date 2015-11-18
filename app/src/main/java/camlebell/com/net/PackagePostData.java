@@ -192,6 +192,40 @@ public class PackagePostData {
             return null;
         }
     }
+    /**
+     * 菜肴类别接口
+     */
+    public static String dishTypeList(String treeGradeId) {
+        JSONObject root = new JSONObject();
+        JSONObject parameters = new JSONObject();
+        try {
+            root.put("cmd", "dishTypeList");
+            root.put("params", parameters);
+            parameters.put("treeGradeId", treeGradeId);
 
+            return setPages(root, 10, 1);
+        } catch (JSONException e) {
 
+            e.printStackTrace();
+            return null;
+        }
+    }
+    /**
+     * 菜肴类别接口
+     */
+    public static String dishList(String dishTypeId) {
+        JSONObject root = new JSONObject();
+        JSONObject parameters = new JSONObject();
+        try {
+            root.put("cmd", "dishList");
+            root.put("params", parameters);
+            parameters.put("dishTypeId", dishTypeId);
+
+            return setPages(root, 10, 1);
+        } catch (JSONException e) {
+
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

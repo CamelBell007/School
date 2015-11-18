@@ -8,14 +8,21 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import camlebell.com.Adapter.AllKindMenusAdapter;
+import camlebell.com.MyApplcation;
+import camlebell.com.Utils.Constants;
 import camlebell.com.activity.SingleKindBigMenuListActivity;
+import camlebell.com.base.BaseBean;
 import camlebell.com.base.BaseFragment;
-import camlebell.com.model.DishInfo;
+import camlebell.com.model.DishListInfo;
 import camlebell.com.myapplication.R;
+import camlebell.com.net.BaseAsyncHttp;
+import camlebell.com.net.HttpResponseHandler;
+import camlebell.com.net.PackagePostData;
 
 /**
  * @author sunyan
@@ -34,7 +41,7 @@ public class AllMenusFragment extends BaseFragment {
 
     private AllKindMenusAdapter allKindMenusAdapter;
     private ListView vMenuKindsListView;
-    private ArrayList<DishInfo> mDishInfoList;
+    private ArrayList<DishListInfo.DishInfo> mDishInfoList;
     private String mParam1;
     private String mParam2;
 
@@ -93,8 +100,10 @@ public class AllMenusFragment extends BaseFragment {
         vMenuKindsListView.setOnItemClickListener(new ListView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                DishListInfo.DishInfo disInfo = (DishListInfo.DishInfo)allKindMenusAdapter.getItem(position);
                 Intent intent = new Intent();
                 intent.setClass(getActivity(),SingleKindBigMenuListActivity.class);
+                intent.putExtra("dishTypeId",disInfo.dishTypeId);
                 getActivity().startActivity(intent);
             }
         });
@@ -103,22 +112,11 @@ public class AllMenusFragment extends BaseFragment {
 
     @Override
     protected void initData() {
-        DishInfo workOne = new DishInfo("12315","大荤","大荤");
-        DishInfo workTwo = new DishInfo("12315","小荤","小荤");
-        DishInfo workThree = new DishInfo("12315","水果","水果");
-        DishInfo workFour = new DishInfo("12315","蔬菜","蔬菜");
-        DishInfo workFive = new DishInfo("12315","汤","汤");
-        DishInfo workSix = new DishInfo("12315","饭","饭");
-        mDishInfoList = new ArrayList<>();
-        mDishInfoList.add(workOne);
-        mDishInfoList.add(workTwo);
-        mDishInfoList.add(workThree);
-        mDishInfoList.add(workFour);
-        mDishInfoList.add(workFive);
-        mDishInfoList.add(workSix);
 
-        allKindMenusAdapter = new AllKindMenusAdapter(getActivity(), mDishInfoList);
+        allKindMenusAdapter = new AllKindMenusAdapter(getActivity());
         vMenuKindsListView.setAdapter(allKindMenusAdapter);
+
+        getDishTypeList(MyApplcation.CURRENT_SCHOOL_ID);
     }
 
     @Override
@@ -143,6 +141,40 @@ public class AllMenusFragment extends BaseFragment {
      */
     public interface OnLeftFragmentInteractionListener {
         public void onLeftFragmentInteraction(Uri uri);
+    }
+
+    /**
+     * 设备型号列表
+     */
+    public void getDishTypeList(final String treeGradeId) {
+        String json = PackagePostData.dishTypeList(treeGradeId);
+
+        BaseAsyncHttp.postUrlEntity(Constants.BASE_URL, "",
+                json, new HttpResponseHandler(
+                        DishListInfo.class, getActivity()) {
+                    @Override
+                    public void uiSuccess(BaseBean resp) {
+                        DishListInfo bean = (DishListInfo) resp;
+                        mDishInfoList = bean.detail.dataList;
+                        allKindMenusAdapter.setDataChange(mDishInfoList);
+                    }
+
+                    @Override
+                    public void uiFail(BaseBean resp) {
+                        Toast.makeText(getActivity(), resp.resultNote, Toast.LENGTH_SHORT)
+                                .show();
+//                mMainHandler.sendEmptyMessageDelayed(GOTO_SELECTLOGIN, 2000);
+                    }
+
+                    @Override
+                    public void uiStart() {
+                    }
+
+                    @Override
+                    public void uiFinish() {
+                    }
+
+                });
     }
 
 }

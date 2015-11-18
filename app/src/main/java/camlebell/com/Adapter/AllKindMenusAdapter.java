@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import camlebell.com.model.DishInfo;
+import camlebell.com.model.DishListInfo;
 import camlebell.com.myapplication.R;
 
 
@@ -24,14 +24,14 @@ import camlebell.com.myapplication.R;
 public class AllKindMenusAdapter extends BaseAdapter {
     private Context mContext;
 
-    private ArrayList<DishInfo> mDishInfo;
+    private ArrayList<DishListInfo.DishInfo> mDishInfo;
 
     public AllKindMenusAdapter(Context context) {
         super();
         this.mContext = context;
     }
 
-    public AllKindMenusAdapter(Context context, ArrayList<DishInfo> mDishInfo) {
+    public AllKindMenusAdapter(Context context, ArrayList<DishListInfo.DishInfo> mDishInfo) {
         super();
         this.mContext = context;
         this.mDishInfo = mDishInfo;
@@ -81,7 +81,7 @@ public class AllKindMenusAdapter extends BaseAdapter {
      * @param holder
      */
     public void bindView(ViewHolder holder,int position) {
-        holder.vMenuName.setText(mDishInfo.get(position).menuName);
+        holder.vMenuName.setText(mDishInfo.get(position).dishTypeName);
     }
 
     /**
@@ -89,6 +89,15 @@ public class AllKindMenusAdapter extends BaseAdapter {
      */
     public final class ViewHolder {
         public TextView vMenuName;//职位
+    }
+
+    /**
+     * 修改数据
+     * @param mDishInfo
+     */
+    public void setDataChange(ArrayList<DishListInfo.DishInfo> mDishInfo){
+        this.mDishInfo = mDishInfo;
+        notifyDataSetChanged();
     }
 
 }

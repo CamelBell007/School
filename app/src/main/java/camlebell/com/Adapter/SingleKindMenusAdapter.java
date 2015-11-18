@@ -12,7 +12,9 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import camlebell.com.model.DishDetailInfo;
 import camlebell.com.model.DishInfo;
+import camlebell.com.model.DishListInfo;
 import camlebell.com.myapplication.R;
 
 
@@ -26,7 +28,7 @@ import camlebell.com.myapplication.R;
 public class SingleKindMenusAdapter extends BaseAdapter {
     private Context mContext;
 
-    private ArrayList<DishInfo> mContentInfoList;
+    private ArrayList<DishDetailInfo.DishDetail> mContentInfoList;
 
 //    private DisplayImageOptions options;
 
@@ -36,7 +38,7 @@ public class SingleKindMenusAdapter extends BaseAdapter {
         this.mContext = context;
     }
 
-    public SingleKindMenusAdapter(Context context, ArrayList<DishInfo> mContentInfoList) {
+    public SingleKindMenusAdapter(Context context, ArrayList<DishDetailInfo.DishDetail> mContentInfoList) {
         super();
         this.mContext = context;
         this.mContentInfoList = mContentInfoList;
@@ -88,7 +90,7 @@ public class SingleKindMenusAdapter extends BaseAdapter {
      * @param holder
      */
     public void bindView(ViewHolder holder,int position) {
-        holder.vMenuName.setText(mContentInfoList.get(position).menuName);
+        holder.vMenuName.setText(mContentInfoList.get(position).dishName);
 //        holder.imgRules.setScaleType(ScaleType.CENTER_CROP);
 //        holder.imgRules.setVisibility(View.VISIBLE);
     }
@@ -99,6 +101,15 @@ public class SingleKindMenusAdapter extends BaseAdapter {
     public final class ViewHolder {
         public TextView vMenuName;
         public ImageView imgRules;
+    }
+
+    /**
+     * 修改数据
+     * @param mContentInfoList
+     */
+    public void setDataChange(ArrayList<DishDetailInfo.DishDetail> mContentInfoList){
+        this.mContentInfoList = mContentInfoList;
+        notifyDataSetChanged();
     }
 
 }
