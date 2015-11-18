@@ -8,12 +8,10 @@ import java.util.Map;
 import camlebell.com.base.net.Decoder;
 import camlebell.com.base.net.YohoRequest;
 import camlebell.com.model.BaseModel;
-import camlebell.com.model.ChannelInfo;
 import camlebell.com.model.DeviceInfo;
-import camlebell.com.model.DeviceTypeInfo;
+import camlebell.com.model.DeviceListInfo;
 import camlebell.com.model.DishTypeInfo;
 import camlebell.com.model.GoodNutritionInfo;
-import camlebell.com.model.KitchenStatusInfo;
 import camlebell.com.model.DishInfo;
 import camlebell.com.model.PeopleInfo;
 import camlebell.com.model.PeopleTypeInfo;
@@ -22,12 +20,9 @@ import camlebell.com.model.WeekDishInfo;
 import camlebell.com.request.ChangePasswordRequest;
 import camlebell.com.request.DayMenuRequest;
 import camlebell.com.request.DeviceListRequest;
-import camlebell.com.request.DeviceTypeRequest;
 import camlebell.com.request.DishRequest;
 import camlebell.com.request.DishTypeRequest;
-import camlebell.com.request.GetChannelListRequest;
 import camlebell.com.request.GoodNutritionRequest;
-import camlebell.com.request.KitchenStatusRequest;
 import camlebell.com.request.LoginRequest;
 import camlebell.com.request.PeopleRequest;
 import camlebell.com.request.PeopleTypeRequest;
@@ -71,8 +66,8 @@ public class HttpManager {
      * 登陆请求
      * @param listener
      */
-    public static void loginRequest(String userName,String passwd,String appName,final IResponseListener<ResultInfo<String>> listener){
-        LoginRequest request = new LoginRequest(userName,passwd,appName);
+    public static void loginRequest(String userName,String passwd,final IResponseListener<ResultInfo<String>> listener){
+        LoginRequest request = new LoginRequest(userName,passwd);
         Map<String,String> params = request.getParamsMap();
 
         YohoRequest yohoRequest = new YohoRequest(Decoder.LOGIN, request.getUrl(), params, new Response.Listener<BaseModel>() {
@@ -148,59 +143,7 @@ public class HttpManager {
         });
         HttpService.INSTANCE.startRequest(yohoRequest);
     }
-    /**
-     * 人员、设备状态接口
-     * @param listener
-     */
-    public static void getKitchenStatusRequest(String treeGradeId,final IResponseListener<ResultInfo<KitchenStatusInfo>> listener){
-        KitchenStatusRequest request = new KitchenStatusRequest(treeGradeId);
-        Map<String,String> params = request.getParamsMap();
 
-        YohoRequest yohoRequest = new YohoRequest(Decoder.KITCHEN_STATUS, request.getUrl(), params, new Response.Listener<BaseModel>() {
-            @Override
-            public void onResponse(BaseModel response) {
-                listener.onResponseSuccess((ResultInfo<KitchenStatusInfo>)response);
-            }
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                listener.onResponseFailed("网络错误!");
-            }
-
-            @Override
-            public void onStart() {
-                listener.onResponseStart();
-            }
-        });
-        HttpService.INSTANCE.startRequest(yohoRequest);
-    }
-
-    /**
-     * 设备型号列表
-     * @param listener
-     */
-    public static void getDeviceTypeInfo(String treeGradeId,final IResponseListener<ResultInfo<DeviceTypeInfo>> listener){
-        DeviceTypeRequest request = new DeviceTypeRequest(treeGradeId);
-        Map<String,String> params = request.getParamsMap();
-
-        YohoRequest yohoRequest = new YohoRequest(Decoder.DEVICE_TYPE_LIST, request.getUrl(), params, new Response.Listener<BaseModel>() {
-            @Override
-            public void onResponse(BaseModel response) {
-                listener.onResponseSuccess((ResultInfo<DeviceTypeInfo>)response);
-            }
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                listener.onResponseFailed("网络错误!");
-            }
-
-            @Override
-            public void onStart() {
-                listener.onResponseStart();
-            }
-        });
-        HttpService.INSTANCE.startRequest(yohoRequest);
-    }
     /**
      * 设备列表
      * @param listener

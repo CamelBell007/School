@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import camlebell.com.model.PeopleListInfo;
 import camlebell.com.model.WorkInfo;
 import camlebell.com.myapplication.R;
 
@@ -26,14 +27,14 @@ import camlebell.com.myapplication.R;
 public class AllKindPeopleAdapter extends BaseAdapter {
     private Context mContext;
 
-    private ArrayList<WorkInfo> mWorkInfoList;
+    private ArrayList<PeopleListInfo.PeopleInfo> mWorkInfoList;
 
     public AllKindPeopleAdapter(Context context) {
         super();
         this.mContext = context;
     }
 
-    public AllKindPeopleAdapter(Context context, ArrayList<WorkInfo> mWorkInfoList) {
+    public AllKindPeopleAdapter(Context context, ArrayList<PeopleListInfo.PeopleInfo> mWorkInfoList) {
         super();
         this.mContext = context;
         this.mWorkInfoList = mWorkInfoList;
@@ -87,9 +88,9 @@ public class AllKindPeopleAdapter extends BaseAdapter {
      * @param holder
      */
     public void bindView(ViewHolder holder,int position) {
-        holder.vJobName.setText(mWorkInfoList.get(position).jobName);
-        holder.vWorkerName.setText(mWorkInfoList.get(position).workName);
-        holder.vWorkStatus.setText(mWorkInfoList.get(position).workStatus);
+        holder.vJobName.setText(mWorkInfoList.get(position).groupLeader);
+        holder.vWorkerName.setText(mWorkInfoList.get(position).peopleTypeName);
+//        holder.vWorkStatus.setText(mWorkInfoList.get(position).workStatus);
     }
 
     /**
@@ -101,4 +102,8 @@ public class AllKindPeopleAdapter extends BaseAdapter {
         public TextView vWorkStatus;//职位
     }
 
+    public void setDataChange(ArrayList<PeopleListInfo.PeopleInfo> mWorkInfoList){
+        this.mWorkInfoList = mWorkInfoList;
+        notifyDataSetChanged();
+    }
 }

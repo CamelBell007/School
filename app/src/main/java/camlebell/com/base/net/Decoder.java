@@ -4,12 +4,10 @@ import camlebell.com.model.BaseModel;
 import camlebell.com.request.ChangePasswordRequest;
 import camlebell.com.request.DayMenuRequest;
 import camlebell.com.request.DeviceListRequest;
-import camlebell.com.request.DeviceTypeRequest;
 import camlebell.com.request.DishRequest;
 import camlebell.com.request.DishTypeRequest;
 import camlebell.com.request.GetChannelListRequest;
 import camlebell.com.request.GoodNutritionRequest;
-import camlebell.com.request.KitchenStatusRequest;
 import camlebell.com.request.LoginRequest;
 import camlebell.com.request.PeopleRequest;
 import camlebell.com.request.PeopleTypeRequest;
@@ -67,17 +65,7 @@ public class Decoder implements IDecoder<BaseModel> {
                     request.setResponse(jsonString);
                     return request.getDayMenuList();
                 }
-                case KITCHEN_STATUS:{
-                    KitchenStatusRequest request = new KitchenStatusRequest();
-                    request.setResponse(jsonString);
-                    return request.getKitchenStatus();
-                }
 
-                case DEVICE_TYPE_LIST:{
-                    DeviceTypeRequest request = new DeviceTypeRequest();
-                    request.setResponse(jsonString);
-                    return request.getDeviceTypeInfo();
-                }
                 case DEVICE_LIST:{
                     DeviceListRequest request = new DeviceListRequest();
                     request.setResponse(jsonString);

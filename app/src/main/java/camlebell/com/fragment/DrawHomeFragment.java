@@ -5,26 +5,38 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import camlebell.com.MyApplcation;
+import camlebell.com.Utils.Constants;
+import camlebell.com.Utils.TimeUtils;
 import camlebell.com.activity.ExceptionMessageActivity;
+import camlebell.com.activity.HomeActivity;
 import camlebell.com.activity.ManagerDeviceActivity;
 import camlebell.com.activity.ManagerMenuActivity;
 import camlebell.com.activity.ManagerMonitorActivity;
 import camlebell.com.activity.ManagerPeopleActivity;
+import camlebell.com.base.BaseBean;
 import camlebell.com.base.BaseFragment;
 import camlebell.com.manager.HttpManager;
+import camlebell.com.model.DayDishResultInfo;
 import camlebell.com.model.KitchenStatusInfo;
 import camlebell.com.model.DishInfo;
 import camlebell.com.model.ResultInfo;
 import camlebell.com.myapplication.R;
+import camlebell.com.net.BaseAsyncHttp;
+import camlebell.com.net.HttpResponseHandler;
+import camlebell.com.net.PackagePostData;
 import cn.yoho.yohobase.net.AbstractResponseListener;
 
 /**
  * @author sunyan
- * 侧边栏框架中的主界面
+ *         侧边栏框架中的主界面
  */
 public class DrawHomeFragment extends BaseFragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -37,6 +49,26 @@ public class DrawHomeFragment extends BaseFragment {
     private LinearLayout vManagerMonitor;
     private LinearLayout vManagerOrder;
 
+    private ImageView vLastDayImage;
+    private ImageView vNextDayImage;
+
+    private TextView vYearText;
+    private TextView vMonthText;
+
+    private TextView vBigMeatText;
+    private TextView vSmallMeatText;
+    private TextView vVegeText;
+    private TextView vFruitText;
+    private TextView vSoupText;
+    private TextView vRiceText;
+
+    private TextView vDeviceWorkStatusText;
+    private TextView vDeviceStatusText;
+    private TextView vDevicePeoPleText;
+    private TextView vPeoPleWorkStatusText;
+    private TextView vPeoPleStatusText;
+    private TextView vPeoPlePeoPleText;
+
 
     private String mParam1;
     private String mParam2;
@@ -45,14 +77,6 @@ public class DrawHomeFragment extends BaseFragment {
 
     private MyClickListener myClickListener;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment DrawHomeFragment.
-     */
     public static DrawHomeFragment newInstance(String param1, String param2) {
         DrawHomeFragment fragment = new DrawHomeFragment();
         Bundle args = new Bundle();
@@ -109,6 +133,8 @@ public class DrawHomeFragment extends BaseFragment {
     @Override
     protected void initData() {
         myClickListener = new MyClickListener();
+        getDayMenuRequest(TimeUtils.getNowDate(), MyApplcation.CURRENT_SCHOOL_ID);
+        getKitchenStatus(MyApplcation.CURRENT_SCHOOL_ID);
     }
 
     @Override
@@ -119,58 +145,134 @@ public class DrawHomeFragment extends BaseFragment {
         vManagerMeun = findView(R.id.manager_menu_layout);
         vManagerMonitor = findView(R.id.manager_monitor_layout);
         vManagerOrder = findView(R.id.manager_order_layout);
+
+        vLastDayImage = findView(R.id.last_day_image);
+        vNextDayImage = findView(R.id.next_day_image);
+
+        vBigMeatText = findView(R.id.day_menu_big_meat_text);
+        vSmallMeatText = findView(R.id.day_menu_small_meat_text);
+        vVegeText = findView(R.id.day_menu_vege_meat_text);
+        vFruitText = findView(R.id.day_menu_fruit_text);
+        vSoupText = findView(R.id.day_menu_soup_text);
+        vRiceText = findView(R.id.day_menu_rice_text);
+
+        vDeviceWorkStatusText = findView(R.id.device_work_status_text);
+        vDeviceStatusText = findView(R.id.device_status_text);
+        vDevicePeoPleText = findView(R.id.device_people_text);
+        vPeoPleWorkStatusText = findView(R.id.people_work_status_text);
+        vPeoPleStatusText = findView(R.id.people_status_text);
+        vPeoPlePeoPleText = findView(R.id.people_people_text);
     }
 
 
     /**
      * 人员、设备状态接口
      */
+
     private void getKitchenStatus(String treeGradeId) {
+        String json = PackagePostData.kitchenStatus(treeGradeId);
 
-        HttpManager.getKitchenStatusRequest(treeGradeId, new AbstractResponseListener<ResultInfo<KitchenStatusInfo>>() {
+        BaseAsyncHttp.postUrlEntity(Constants.BASE_URL, "",
+                json, new HttpResponseHandler(
+                        KitchenStatusInfo.class, getActivity()) {
+                    @Override
+                    public void uiSuccess(BaseBean resp) {
+                        KitchenStatusInfo info = (KitchenStatusInfo)resp;
+                        if(info!=null){
+                            if("0".equals(info.detail.deviceStatus)){
+                                vDeviceStatusText.setText("不正常");
+                            }else{
+                                vDeviceStatusText.setText("正常");
+                            }
+                            if("0".equals(info.detail.peopleStatus)){
+                                vPeoPleStatusText.setText("不正常");
+                            }else{
+                                vPeoPleStatusText.setText("正常");
+                            }
+                        }
 
-            @Override
-            public void onResponseStart() {
+                    }
 
-            }
+                    @Override
+                    public void uiFail(BaseBean resp) {
+                        Toast.makeText(getActivity(), resp.resultNote, Toast.LENGTH_SHORT)
+                                .show();
+                    }
 
-            @Override
-            public void onResponseSuccess(ResultInfo<KitchenStatusInfo> model) {
-                super.onResponseSuccess(model);
-                KitchenStatusInfo kitchenStatusInfo = (KitchenStatusInfo) model.getInfo();
-            }
+                    @Override
+                    public void uiStart() {
+                    }
 
-            @Override
-            public void onResponseFailed(String reason) {
+                    @Override
+                    public void uiFinish() {
+                    }
 
-            }
-        });
+                });
     }
 
     /**
      * 每日菜单请求数据
      */
-    private void getDayMenuRequest(String day,String treeGradeId) {
+    private void getDayMenuRequest(String day, String treeGradeId) {
+        String json = PackagePostData.dayMenu(day, treeGradeId);
 
-        HttpManager.dayMenuRequest(day, treeGradeId,  new AbstractResponseListener<ResultInfo<DishInfo>>() {
+        BaseAsyncHttp.postUrlEntity(Constants.BASE_URL, "",
+                json, new HttpResponseHandler(
+                        DayDishResultInfo.class, getActivity()) {
+                    @Override
+                    public void uiSuccess(BaseBean resp) {
+                        DayDishResultInfo info = (DayDishResultInfo)resp;
+                        if(info!=null){
+                            ArrayList<DayDishResultInfo.DayDishInfo> dishs = info.detail.dataList;
+                            vBigMeatText.setText(dishs.get(0).good);
+                            vSmallMeatText.setText(dishs.get(1).good);
+                            vVegeText.setText(dishs.get(2).good);
+//                        vFruitText.setText(dishs.get(3).good);
+                            vSoupText.setText(dishs.get(3).good);
+                            vRiceText.setText(dishs.get(4).good);
+                        }else{
+                            Toast.makeText(getActivity(), resp.resultNote, Toast.LENGTH_SHORT)
+                                    .show();
+                        }
 
-            @Override
-            public void onResponseStart() {
+                    }
 
-            }
+                    @Override
+                    public void uiFail(BaseBean resp) {
+                        Toast.makeText(getActivity(), resp.resultNote, Toast.LENGTH_SHORT)
+                                .show();
+                    }
 
-            @Override
-            public void onResponseSuccess(ResultInfo<DishInfo> model) {
-                super.onResponseSuccess(model);
-                ArrayList<DishInfo> dishInfos = (ArrayList<DishInfo>)model.getListInfo();
-            }
+                    @Override
+                    public void uiStart() {
+                    }
 
-            @Override
-            public void onResponseFailed(String reason) {
+                    @Override
+                    public void uiFinish() {
+                    }
 
-            }
-        });
+                });
     }
+
+
+//        HttpManager.dayMenuRequest(day, treeGradeId,  new AbstractResponseListener<ResultInfo<DishInfo>>() {
+//
+//            @Override
+//            public void onResponseStart() {
+//
+//            }
+//
+//            @Override
+//            public void onResponseSuccess(ResultInfo<DishInfo> model) {
+//                super.onResponseSuccess(model);
+//            }
+//
+//            @Override
+//            public void onResponseFailed(String reason) {
+//
+//            }
+//        });
+//    }
 
 
     /**

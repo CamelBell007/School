@@ -15,12 +15,19 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.handmark.pulltorefresh.library.internal.Utils;
+
 import org.w3c.dom.Text;
 
+import camlebell.com.Utils.Constants;
+import camlebell.com.base.BaseBean;
 import camlebell.com.base.ToolbarBaseActivity;
 import camlebell.com.manager.HttpManager;
 import camlebell.com.model.ResultInfo;
 import camlebell.com.myapplication.R;
+import camlebell.com.net.BaseAsyncHttp;
+import camlebell.com.net.HttpResponseHandler;
+import camlebell.com.net.PackagePostData;
 import cn.yoho.library.util.StrUtil;
 import cn.yoho.yohobase.net.AbstractResponseListener;
 
@@ -72,7 +79,6 @@ public class SplashActivity extends Activity {
         vSchoolInputText.setOnClickListener(loginClickListener);
         vLoginButton.setOnClickListener(loginClickListener);
 
-        loginRequest("","","");
     }
 
     /**
@@ -94,27 +100,40 @@ public class SplashActivity extends Activity {
     /**
      * 请求登陆
      */
-    private void loginRequest(String userName, String passwd, String appName) {
+    public void loginRequest(final String userName, final String passWord) {
+        String json = PackagePostData.signin(userName, passWord);
 
-        HttpManager.loginRequest(userName, passwd, appName, new AbstractResponseListener< ResultInfo< String >>() {
+        BaseAsyncHttp.postUrlEntity(Constants.BASE_URL, "",
+                json, new HttpResponseHandler(
+                BaseBean.class, this) {
             @Override
-            public void onResponseStart() {
-            }
+            public void uiSuccess(BaseBean resp) {
+//                LoginBean bean = (LoginBean) resp;
+//                PreferencesUtility.setLoginPreferences(SplashActivity.this,
+//                        userName, passWord);
 
-            @Override
-            public void onResponseSuccess(ResultInfo<String> message) {
-                super.onResponseSuccess(message);
+//                mMainHandler.sendEmptyMessageDelayed(GOTO_MAIN, 2000);
                 Intent intent = new Intent();
                 intent.setClass(SplashActivity.this,HomeActivity.class);
                 startActivity(intent);
                 SplashActivity.this.finish();
-
             }
 
             @Override
-            public void onResponseFailed(String reason) {
-                Toast.makeText(SplashActivity.this,reason,Toast.LENGTH_SHORT).show();
+            public void uiFail(BaseBean resp) {
+                Toast.makeText(SplashActivity.this, resp.resultNote, Toast.LENGTH_SHORT)
+                        .show();
+//                mMainHandler.sendEmptyMessageDelayed(GOTO_SELECTLOGIN, 2000);
             }
+
+            @Override
+            public void uiStart() {
+            }
+
+            @Override
+            public void uiFinish() {
+            }
+
         });
     }
 
@@ -130,21 +149,16 @@ public class SplashActivity extends Activity {
                 case R.id.login_model_login_button:
                     mUserName = vUserNameEdit.getText().toString().trim();
                     mPassword = vPasswordEdit.getText().toString().trim();
-//FIXME 调试接口打开使用
-//                    if(StrUtil.isEmpty(mUserName)){
-//                        Toast.makeText(SplashActivity.this, "请输入用户名", Toast.LENGTH_SHORT).show();
-//                        return;
-//                    }
-//
-//                    if(StrUtil.isEmpty(mPassword)){
-//                        Toast.makeText(SplashActivity.this, "请输入密码", Toast.LENGTH_SHORT).show();
-//                        return;
-//                    }
-//                    loginRequest(mUserName, mPassword, appName);
-                    Intent intent = new Intent();
-                    intent.setClass(SplashActivity.this,HomeActivity.class);
-                    startActivity(intent);
-                    SplashActivity.this.finish();
+                    if(StrUtil.isEmpty(mUserName)){
+                        Toast.makeText(SplashActivity.this, "请输入用户名", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    if(StrUtil.isEmpty(mPassword)){
+                        Toast.makeText(SplashActivity.this, "请输入密码", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    loginRequest(mUserName, mPassword);
                     break;
                 default:
                     break;

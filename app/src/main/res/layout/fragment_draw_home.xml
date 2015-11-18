@@ -38,6 +38,7 @@
         android:gravity="center">
 
         <ImageView
+            android:id="@+id/last_day_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@mipmap/last_day" />
@@ -60,6 +61,7 @@
             android:textSize="12sp" />
 
         <ImageView
+            android:id="@+id/next_day_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@mipmap/next_day" />
@@ -100,6 +102,7 @@
                     android:textSize="12sp" />
 
                 <TextView
+                    android:id="@+id/day_menu_big_meat_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
@@ -131,6 +134,7 @@
                     android:textSize="12sp" />
 
                 <TextView
+                    android:id="@+id/day_menu_small_meat_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
@@ -171,6 +175,7 @@
                     android:textSize="12sp" />
 
                 <TextView
+                    android:id="@+id/day_menu_vege_meat_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
@@ -202,6 +207,7 @@
                     android:textSize="12sp" />
 
                 <TextView
+                    android:id="@+id/day_menu_fruit_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
@@ -242,6 +248,7 @@
                     android:textSize="12sp" />
 
                 <TextView
+                    android:id="@+id/day_menu_soup_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
@@ -273,6 +280,7 @@
                     android:textSize="12sp" />
 
                 <TextView
+                    android:id="@+id/day_menu_rice_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
@@ -326,6 +334,7 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/device_work_status_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
@@ -334,6 +343,7 @@
                 android:textSize="14sp" />
 
             <TextView
+                android:id="@+id/device_status_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
@@ -359,6 +369,7 @@
                     android:textSize="12sp" />
 
                 <TextView
+                    android:id="@+id/device_people_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -404,6 +415,7 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/people_work_status_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
@@ -412,6 +424,7 @@
                 android:textSize="14sp" />
 
             <TextView
+                android:id="@+id/people_status_text"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
@@ -437,6 +450,7 @@
                     android:textSize="12sp" />
 
                 <TextView
+                    android:id="@+id/people_people_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

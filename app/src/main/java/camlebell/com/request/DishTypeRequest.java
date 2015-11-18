@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import camlebell.com.Utils.Constants;
-import camlebell.com.model.DeviceTypeInfo;
 import camlebell.com.model.DishTypeInfo;
 import camlebell.com.model.ResultInfo;
 

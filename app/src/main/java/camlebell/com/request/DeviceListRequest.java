@@ -9,7 +9,6 @@ import java.util.List;
 
 import camlebell.com.Utils.Constants;
 import camlebell.com.model.DeviceInfo;
-import camlebell.com.model.DeviceTypeInfo;
 import camlebell.com.model.ResultInfo;
 
 
