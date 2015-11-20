@@ -10,7 +10,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import camlebell.com.model.DishInfo;
+import camlebell.com.model.WeekDayDishInfo;
+import camlebell.com.model.WeekDishInfo;
 import camlebell.com.myapplication.R;
 
 
@@ -24,14 +25,15 @@ import camlebell.com.myapplication.R;
 public class WeakMenusAdapter extends BaseAdapter {
     private Context mContext;
     private String[] days;
-    private ArrayList<ArrayList<DishInfo>> mMenuInfos;
+    private ArrayList<WeekDayDishInfo.WeekDayDishListInfo> mMenuInfos;
 
     public WeakMenusAdapter(Context context) {
         super();
         this.mContext = context;
+        days = new String[]{"一","二","三","四","五","六","日",};
     }
 
-    public WeakMenusAdapter(Context context, ArrayList<ArrayList<DishInfo>> mMenuInfos) {
+    public WeakMenusAdapter(Context context, ArrayList<WeekDayDishInfo.WeekDayDishListInfo> mMenuInfos) {
         super();
         this.mContext = context;
         this.mMenuInfos = mMenuInfos;
@@ -89,12 +91,16 @@ public class WeakMenusAdapter extends BaseAdapter {
      * @param holder
      */
     public void bindView(ViewHolder holder,int position) {
-        ArrayList<DishInfo> dayMenusInfo = mMenuInfos.get(position);
+        WeekDayDishInfo.WeekDayDishListInfo dayMenusInfo = mMenuInfos.get(position);
+        ArrayList<WeekDishInfo> dataList = dayMenusInfo.dataList;
         holder.vWeekDay.setText(days[position]);
-        holder.vBigMenu.setText(dayMenusInfo.get(0).menuName);
-        holder.vSmallMenu.setText(dayMenusInfo.get(1).menuName);
-        holder.vVegetable.setText(dayMenusInfo.get(2).menuName);
-        holder.vFruit.setText(dayMenusInfo.get(3).menuName);
+        if(dataList!=null){
+            holder.vBigMenu.setText(dataList.get(0).good);
+            holder.vSmallMenu.setText(dataList.get(1).good);
+            holder.vVegetable.setText(dataList.get(2).good);
+            holder.vFruit.setText(dataList.get(3).good);
+        }
+
     }
 
     /**
@@ -108,4 +114,12 @@ public class WeakMenusAdapter extends BaseAdapter {
         public TextView vFruit;//
     }
 
+    /**
+     * 数据改变
+     * @param mMenuInfos
+     */
+    public void setDataChange(ArrayList<WeekDayDishInfo.WeekDayDishListInfo> mMenuInfos){
+        this.mMenuInfos = mMenuInfos;
+        notifyDataSetChanged();
+    }
 }

@@ -16,23 +16,18 @@ import camlebell.com.MyApplcation;
 import camlebell.com.Utils.Constants;
 import camlebell.com.Utils.TimeUtils;
 import camlebell.com.activity.ExceptionMessageActivity;
-import camlebell.com.activity.HomeActivity;
 import camlebell.com.activity.ManagerDeviceActivity;
 import camlebell.com.activity.ManagerMenuActivity;
 import camlebell.com.activity.ManagerMonitorActivity;
 import camlebell.com.activity.ManagerPeopleActivity;
 import camlebell.com.base.BaseBean;
 import camlebell.com.base.BaseFragment;
-import camlebell.com.manager.HttpManager;
 import camlebell.com.model.DayDishResultInfo;
 import camlebell.com.model.KitchenStatusInfo;
-import camlebell.com.model.DishInfo;
-import camlebell.com.model.ResultInfo;
 import camlebell.com.myapplication.R;
 import camlebell.com.net.BaseAsyncHttp;
 import camlebell.com.net.HttpResponseHandler;
 import camlebell.com.net.PackagePostData;
-import cn.yoho.yohobase.net.AbstractResponseListener;
 
 /**
  * @author sunyan
@@ -255,24 +250,6 @@ public class DrawHomeFragment extends BaseFragment {
     }
 
 
-//        HttpManager.dayMenuRequest(day, treeGradeId,  new AbstractResponseListener<ResultInfo<DishInfo>>() {
-//
-//            @Override
-//            public void onResponseStart() {
-//
-//            }
-//
-//            @Override
-//            public void onResponseSuccess(ResultInfo<DishInfo> model) {
-//                super.onResponseSuccess(model);
-//            }
-//
-//            @Override
-//            public void onResponseFailed(String reason) {
-//
-//            }
-//        });
-//    }
 
 
     /**

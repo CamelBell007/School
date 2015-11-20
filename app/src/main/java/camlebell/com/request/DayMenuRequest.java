@@ -86,7 +86,7 @@ public class DayMenuRequest extends BaseRequest {
 
 		for (int i = 0; i < data.length(); i++) {
 			JSONObject jo = data.optJSONObject(i);
-			DishInfo info = new DishInfo(jo);
+			DishInfo info = null;
 			if (info != null) {
 				list.add(info);
 			}

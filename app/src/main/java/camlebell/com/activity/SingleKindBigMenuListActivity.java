@@ -9,16 +9,13 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import camlebell.com.Adapter.SingleKindMenusAdapter;
-import camlebell.com.MyApplcation;
 import camlebell.com.Utils.Constants;
 import camlebell.com.base.BaseBean;
 import camlebell.com.base.ToolbarBaseActivity;
 import camlebell.com.fragment.DrawHomeFragment;
 import camlebell.com.manager.HttpManager;
-import camlebell.com.model.DeviceInfo;
 import camlebell.com.model.DishDetailInfo;
 import camlebell.com.model.DishInfo;
-import camlebell.com.model.DishListInfo;
 import camlebell.com.model.ResultInfo;
 import camlebell.com.myapplication.R;
 import camlebell.com.net.BaseAsyncHttp;
@@ -56,25 +53,6 @@ public class SingleKindBigMenuListActivity extends ToolbarBaseActivity implement
         setTitle("大荤");
         mDishTypeId = getIntent().getStringExtra("dishTypeId");
 
-//        DishInfo workOne = new DishInfo("12315","红烧肉","大荤");
-//        DishInfo workTwo = new DishInfo("12315","红烧排骨","大荤");
-//        DishInfo workThree = new DishInfo("12315","土豆烧鸡","大荤");
-//        DishInfo workFour = new DishInfo("12315","菇香小炒肉","大荤");
-//        DishInfo workFive = new DishInfo("12315","酱爆肉丁","大荤");
-//        DishInfo workSix = new DishInfo("12315","香菇鸡块","大荤");
-//        DishInfo workEight = new DishInfo("12315","土豆烩牛肉","大荤");
-//        DishInfo workNine = new DishInfo("12315","肉丝豆腐","大荤");
-//        DishInfo workTen = new DishInfo("12315","芹菜炒肉","大荤");
-//        mDishInfoList = new ArrayList<>();
-//        mDishInfoList.add(workOne);
-//        mDishInfoList.add(workTwo);
-//        mDishInfoList.add(workThree);
-//        mDishInfoList.add(workFour);
-//        mDishInfoList.add(workFive);
-//        mDishInfoList.add(workSix);
-//        mDishInfoList.add(workEight);
-//        mDishInfoList.add(workNine);
-//        mDishInfoList.add(workTen);
 
         singleKindMenusAdapter = new SingleKindMenusAdapter(SingleKindBigMenuListActivity.this);
         vSingleMenuListView.setAdapter(singleKindMenusAdapter);

@@ -5,13 +5,20 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import camlebell.com.Adapter.WeakMenusAdapter;
+import camlebell.com.MyApplcation;
+import camlebell.com.Utils.Constants;
+import camlebell.com.base.BaseBean;
 import camlebell.com.base.BaseFragment;
-import camlebell.com.model.DishInfo;
+import camlebell.com.model.WeekDayDishInfo;
 import camlebell.com.myapplication.R;
+import camlebell.com.net.BaseAsyncHttp;
+import camlebell.com.net.HttpResponseHandler;
+import camlebell.com.net.PackagePostData;
 
 /**
  * @author sunyan
@@ -30,7 +37,7 @@ public class WeakMenusFragment extends BaseFragment {
 
     private WeakMenusAdapter weakMenusAdapter;
     private ListView vWeakMenuListView;
-    private ArrayList<ArrayList<DishInfo>> mMenuInfoList;
+    private ArrayList<WeekDayDishInfo.WeekDayDishListInfo> mMenuInfoList;
 
     private String mParam1;
     private String mParam2;
@@ -97,60 +104,11 @@ public class WeakMenusFragment extends BaseFragment {
 
     @Override
     protected void initData() {
-        mMenuInfoList = new ArrayList<ArrayList<DishInfo>>();
-        ArrayList<DishInfo> one = new ArrayList<>();
-        DishInfo one1 = new DishInfo("111","酸汤肥牛","大荤");
-        DishInfo one2 = new DishInfo("112","藕片炒肉","小荤");
-        DishInfo one3 = new DishInfo("113","炒空心菜","素菜");
-        DishInfo one4 = new DishInfo("114","苹果","水果");
-        one.add(one1);one.add(one2);one.add(one3);one.add(one4);
-        ArrayList<DishInfo> two = new ArrayList<>();
-        DishInfo two1 = new DishInfo("121","酸汤肥牛","大荤");
-        DishInfo two2 = new DishInfo("122","藕片炒肉","小荤");
-        DishInfo two3 = new DishInfo("123","炒空心菜","素菜");
-        DishInfo two4 = new DishInfo("124","苹果","水果");
-        two.add(two1);two.add(two2);two.add(two3);two.add(two4);
-        ArrayList<DishInfo> three = new ArrayList<>();
-        DishInfo three1 = new DishInfo("111","酸汤肥牛","大荤");
-        DishInfo three2 = new DishInfo("112","藕片炒肉","小荤");
-        DishInfo three3 = new DishInfo("113","炒空心菜","素菜");
-        DishInfo three4 = new DishInfo("114","苹果","水果");
-        three.add(three1);three.add(three2);three.add(three3);three.add(three4);
-        ArrayList<DishInfo> four = new ArrayList<>();
-        DishInfo four1 = new DishInfo("111","酸汤肥牛","大荤");
-        DishInfo four2 = new DishInfo("112","藕片炒肉","小荤");
-        DishInfo four3 = new DishInfo("113","炒空心菜","素菜");
-        DishInfo four4 = new DishInfo("114","苹果","水果");
-        four.add(one1);four.add(one2);four.add(one3);four.add(one4);
-        ArrayList<DishInfo> five = new ArrayList<>();
-        DishInfo five1 = new DishInfo("111","酸汤肥牛","大荤");
-        DishInfo five2 = new DishInfo("112","藕片炒肉","小荤");
-        DishInfo five3 = new DishInfo("113","炒空心菜","素菜");
-        DishInfo five4 = new DishInfo("114","苹果","水果");
-        five.add(five1);five.add(five2);five.add(five3);five.add(five4);
-        ArrayList<DishInfo> six = new ArrayList<>();
-        DishInfo six1 = new DishInfo("111","酸汤肥牛","大荤");
-        DishInfo six2 = new DishInfo("112","藕片炒肉","小荤");
-        DishInfo six3 = new DishInfo("113","炒空心菜","素菜");
-        DishInfo six4 = new DishInfo("114","苹果","水果");
-        six.add(six1);six.add(six2);six.add(six3);six.add(six4);
-        ArrayList<DishInfo> seven = new ArrayList<>();
-        DishInfo seven1 = new DishInfo("111","酸汤肥牛","大荤");
-        DishInfo seven2 = new DishInfo("112","藕片炒肉","小荤");
-        DishInfo seven3 = new DishInfo("113","炒空心菜","素菜");
-        DishInfo seven4 = new DishInfo("114","苹果","水果");
-        seven.add(seven1);seven.add(seven2);seven.add(seven3);seven.add(seven4);
+//        mMenuInfoList = new ArrayList<WeekDayDishInfo.WeekDayDishListInfo>();
 
-        mMenuInfoList.add(one);
-        mMenuInfoList.add(two);
-        mMenuInfoList.add(three);
-        mMenuInfoList.add(four);
-        mMenuInfoList.add(five);
-        mMenuInfoList.add(six);
-        mMenuInfoList.add(seven);
-
-        weakMenusAdapter = new WeakMenusAdapter(getActivity(),mMenuInfoList);
+        weakMenusAdapter = new WeakMenusAdapter(getActivity());
         vWeakMenuListView.setAdapter(weakMenusAdapter);
+        getWeekMenuList(MyApplcation.CURRENT_SCHOOL_ID);
     }
 
     @Override
@@ -177,6 +135,39 @@ public class WeakMenusFragment extends BaseFragment {
      */
     public interface OnLeftFragmentInteractionListener {
         public void onLeftFragmentInteraction(Uri uri);
+    }
+    /**
+     * 获取一周菜单列表
+     */
+    public void getWeekMenuList(final String treeGradeId) {
+        String json = PackagePostData.weekMenus(treeGradeId);
+
+        BaseAsyncHttp.postUrlEntity(Constants.BASE_URL, "",
+                json, new HttpResponseHandler(
+                        WeekDayDishInfo.class, getActivity()) {
+                    @Override
+                    public void uiSuccess(BaseBean resp) {
+                        WeekDayDishInfo bean = (WeekDayDishInfo) resp;
+                        mMenuInfoList = bean.detail.arraylist;
+                        weakMenusAdapter.setDataChange(mMenuInfoList);
+                    }
+
+                    @Override
+                    public void uiFail(BaseBean resp) {
+                        Toast.makeText(getActivity(), resp.resultNote, Toast.LENGTH_SHORT)
+                                .show();
+//                mMainHandler.sendEmptyMessageDelayed(GOTO_SELECTLOGIN, 2000);
+                    }
+
+                    @Override
+                    public void uiStart() {
+                    }
+
+                    @Override
+                    public void uiFinish() {
+                    }
+
+                });
     }
 
 }

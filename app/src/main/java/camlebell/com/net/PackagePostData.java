@@ -228,4 +228,22 @@ public class PackagePostData {
             return null;
         }
     }
+    /**
+     * 周菜肴
+     */
+    public static String weekMenus(String treeGradeId) {
+        JSONObject root = new JSONObject();
+        JSONObject parameters = new JSONObject();
+        try {
+            root.put("cmd", "weekMenu");
+            root.put("params", parameters);
+            parameters.put("treeGradeId", treeGradeId);
+
+            return setPages(root, 10, 1);
+        } catch (JSONException e) {
+
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
