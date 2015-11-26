@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/holo_green_dark"
+    android:background="@mipmap/ic_bg"
     android:orientation="vertical"
-    tools:context="camlebell.com.activity.SplashActivity">
+    tools:context="camlebell.com.activity.SelectLoginActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="25dp"
-            android:background="@mipmap/app_logo" />
+            android:background="@mipmap/ic_smile" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -35,7 +35,7 @@
             android:layout_marginTop="8dp"
             android:text="@string/loading_home_title"
             android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textSize="24sp" />
 
     </LinearLayout>
 
@@ -59,10 +59,10 @@
                 android:id="@+id/input_school_manager_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
+                android:background="@drawable/select_login_bg"
                 android:padding="20dp"
                 android:text="学校管理入口"
-                android:textColor="@color/home_back"
+                android:textColor="@color/white"
                 android:textSize="20sp" />
 
             <TextView
@@ -70,11 +70,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:layout_marginTop="8dp"
-                android:background="@color/white"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/select_login_bg"
                 android:padding="20dp"
                 android:text="监管部门入口"
-                android:textColor="@color/home_back"
+                android:textColor="@color/white"
                 android:textSize="20sp" />
 
         </LinearLayout>
@@ -172,13 +172,9 @@
         android:layout_weight="1"
         android:paddingLeft="25dp"
         android:paddingRight="25dp">
-        <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-            android:text="办人民满意教育，建设幸福鼓楼"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="3dp"
-        />
+
+
+
         <Button
             android:id="@+id/login_model_login_button"
             android:layout_width="wrap_content"
@@ -186,8 +182,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginTop="3dp"
             android:background="@color/home_back"
-            android:textColor="@color/white"
             android:text="登陆"
-            />
-</RelativeLayout>
+            android:textColor="@color/white" />
+    </RelativeLayout>
 </LinearLayout>

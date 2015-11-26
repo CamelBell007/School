@@ -23,7 +23,8 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.2.1'
     compile 'com.android.support:design:22.2.1'
     compile project(':yohobase')
-    compile project(':yoholibrary')
     compile files('libs/android-async-http-1.4.8.jar')
     compile files('libs/gson-2.2.2.jar')
+    compile project(':yoholibrary')
+    compile files('libs/BaiduLBS_Android.jar')
 }

@@ -4,32 +4,19 @@ import android.app.Activity;
 import android.app.Application;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
-import android.util.DisplayMetrics;
 
-import com.nostra13.universalimageloader.cache.disc.impl.UnlimitedDiskCache;
-import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
-import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
-import com.nostra13.universalimageloader.core.download.BaseImageDownloader;
 import com.nostra13.universalimageloader.utils.StorageUtils;
+import com.wmclient.clientsdk.WMClientSdk;
 
 import java.io.File;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 import camlebell.com.Utils.Constants;
@@ -46,6 +33,13 @@ public class MyApplcation extends Application {
     public static int SCREEN_W = 0;
 
     public static final String APP_NAME = "wisdomKitchen_SCHOOL";
+
+
+    //视频的IP地址
+    private String serverAddress = "222.186.3.206";
+    //视频的端口号
+    private int serverPort = 9001;
+    private boolean bLogin = false;
 
 
     public static final String CURRENT_SCHOOL_ID = "5";
@@ -140,12 +134,39 @@ public class MyApplcation extends Application {
                 Constants.PROJECT_FILE_NAME + "/"
                         + Constants.CACHE_FILE_NAME);
         HttpService.INSTANCE.build(this, cacheDir);
+        if(singleton.GetSdkInterface().init(63) != 0) {
+            return;
+        }
+
     }
+
 
 
     //返回应用程序实例
     public static MyApplcation getInstance() {
         return singleton;
+    }
+
+
+    public WMClientSdk GetSdkInterface() {
+        return WMClientSdk.getInstance();
+    }
+
+
+    public boolean hasLogin() {
+        return bLogin;
+    }
+
+    public void setHasLogin(boolean hasLogin) {
+        bLogin = hasLogin;
+    }
+
+    public String getServerAddress() {
+        return serverAddress;
+    }
+
+    public int getServerPort() {
+        return serverPort;
     }
 
     /**

@@ -10,7 +10,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import camlebell.com.MyApplcation;
 import camlebell.com.Utils.Constants;
@@ -46,7 +49,7 @@ public class DrawHomeFragment extends BaseFragment {
 
     private ImageView vLastDayImage;
     private ImageView vNextDayImage;
-
+    private TextView tvDate;
     private TextView vYearText;
     private TextView vMonthText;
 
@@ -71,6 +74,10 @@ public class DrawHomeFragment extends BaseFragment {
     private OnHomeFragmentInteractionListener mListener;
 
     private MyClickListener myClickListener;
+
+    private Calendar calendar;
+
+    private SimpleDateFormat formater;
 
     public static DrawHomeFragment newInstance(String param1, String param2) {
         DrawHomeFragment fragment = new DrawHomeFragment();
@@ -134,7 +141,8 @@ public class DrawHomeFragment extends BaseFragment {
 
     @Override
     protected void initView() {
-
+        calendar = Calendar.getInstance();
+        formater = new SimpleDateFormat("yyyy-MM-dd");
         vManagerPeople = findView(R.id.manager_people_layout);
         vManagerDevice = findView(R.id.manager_device_layout);
         vManagerMeun = findView(R.id.manager_menu_layout);
@@ -142,7 +150,43 @@ public class DrawHomeFragment extends BaseFragment {
         vManagerOrder = findView(R.id.manager_order_layout);
 
         vLastDayImage = findView(R.id.last_day_image);
+        tvDate= findView(R.id.tv_date);
+        tvDate.setText(TimeUtils.getNowDate());
         vNextDayImage = findView(R.id.next_day_image);
+
+        vLastDayImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                try {
+                    calendar.setTime(formater.parse(tvDate.getText().toString()));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                calendar.add(Calendar.DAY_OF_MONTH, -1); // 得到后一月
+
+                String preMonth = formater.format(calendar.getTime());
+//                today = preMonth;
+                tvDate.setText(preMonth);
+
+                getDayMenuRequest(tvDate.getText().toString(), MyApplcation.CURRENT_SCHOOL_ID);
+            }
+        });
+
+        vNextDayImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    calendar.setTime(formater.parse(tvDate.getText().toString()));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                calendar.add(Calendar.DAY_OF_MONTH, 1); // 得到后一月
+                String nextMonth = formater.format(calendar.getTime());
+                tvDate.setText(nextMonth);
+                getDayMenuRequest(tvDate.getText().toString(), MyApplcation.CURRENT_SCHOOL_ID);
+            }
+        });
 
         vBigMeatText = findView(R.id.day_menu_big_meat_text);
         vSmallMeatText = findView(R.id.day_menu_small_meat_text);
@@ -219,12 +263,40 @@ public class DrawHomeFragment extends BaseFragment {
                         DayDishResultInfo info = (DayDishResultInfo)resp;
                         if(info!=null){
                             ArrayList<DayDishResultInfo.DayDishInfo> dishs = info.detail.dataList;
-                            vBigMeatText.setText(dishs.get(0).good);
-                            vSmallMeatText.setText(dishs.get(1).good);
-                            vVegeText.setText(dishs.get(2).good);
-//                        vFruitText.setText(dishs.get(3).good);
-                            vSoupText.setText(dishs.get(3).good);
-                            vRiceText.setText(dishs.get(4).good);
+                            for(int i=0;i<dishs.size();i++){
+                                DayDishResultInfo.DayDishInfo dayDishInfo = dishs.get(i);
+                                String id = dayDishInfo.dishClassId;
+                                if("1".equals(id)){
+                                    vBigMeatText.setText(dishs.get(i).good);
+                                }
+//                                else if("2".equals(id)){
+//                                    vBigMeatText.setText(dishs.get(i).good);
+//                                }
+                                if("2".equals(id)){
+                                    //小荤
+                                    vSmallMeatText.setText(dishs.get(i).good);
+                                }
+                                if("3".equals(id)){
+                                    //蔬菜
+                                    vVegeText.setText(dishs.get(i).good);
+                                }
+                                if("4".equals(id)){
+                                    //汤
+                                    vSoupText.setText(dishs.get(i).good);
+                                }
+                                if("5".equals(id)){
+//饭                                 //米饭
+                                    vRiceText.setText(dishs.get(i).good);
+                                }
+                            }
+                            //大荤
+//                            vBigMeatText.setText(dishs.get(0).good);
+                            //小荤
+//                            vSmallMeatText.setText(dishs.get(1).good);
+//                            vVegeText.setText(dishs.get(2).good);
+//                         vFruitText.setText(dishs.get(3).good);
+
+
                         }else{
                             Toast.makeText(getActivity(), resp.resultNote, Toast.LENGTH_SHORT)
                                     .show();

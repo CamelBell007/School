@@ -32,7 +32,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:gravity="center">
@@ -42,24 +42,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@mipmap/last_day" />
-
         <TextView
+            android:id="@+id/tv_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:text="14-15上"
-            android:textSize="12sp" />
-
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:text="5.11  星期四"
-            android:textSize="12sp" />
-
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:text="--"
+            android:textSize="18sp" />
         <ImageView
             android:id="@+id/next_day_image"
             android:layout_width="wrap_content"
@@ -108,7 +98,7 @@
                     android:layout_weight="2"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:text="黄瓜鸡丁"
+                    android:text="--"
                     android:textSize="12sp" />
             </LinearLayout>
 
@@ -140,7 +130,7 @@
                     android:layout_weight="2"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:text="素鸡烧肉"
+                    android:text="--"
                     android:textSize="12sp" />
             </LinearLayout>
         </LinearLayout>
@@ -181,7 +171,7 @@
                     android:layout_weight="2"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:text="花菜肉片"
+                    android:text="--"
                     android:textSize="12sp" />
             </LinearLayout>
 
@@ -254,7 +244,7 @@
                     android:layout_weight="2"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:text="西红柿鸡蛋汤"
+                    android:text="--"
                     android:textSize="12sp" />
             </LinearLayout>
 
@@ -286,7 +276,7 @@
                     android:layout_weight="2"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:text="米饭"
+                    android:text="--"
                     android:textSize="12sp" />
             </LinearLayout>
         </LinearLayout>

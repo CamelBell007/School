@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">OrderMenu</string>
+    <string name="app_name">智慧厨房</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -20,7 +20,7 @@
     <string name="every_day_menu">每日菜单</string>
     <string name="big_meat">大荤</string>
     <string name="small_meat">小荤</string>
-    <string name="vegetable">素菜</string>
+    <string name="vegetable">蔬菜</string>
     <string name="fruit">水果</string>
     <string name="soup">汤</string>
     <string name="rice">饭</string>
@@ -46,4 +46,15 @@
     <!-- 周推荐 -->
     <string name="today_lunch">今日午餐</string>
     <string name="dinner_push">晚餐推荐</string>
+    <!-- 在线视频 -->
+    <string name="real_button_photo">截图</string>
+    <string name="video_storage_on">录像(开)</string>
+    <string name="real_button_back">回放</string>
+    <!--<string name="real_button_msg">消息(<xliff:g id="number">%1$d</xliff:g>)</string>-->
+    <string name="real_button_msg">消息</string>
+    <string name="real_button_voice_on">音频(开)</string>
+    <string name="real_button_voice_off">音频(关)</string>
+    <string name="real_button_cloud_on">云台(开)</string>
+    <string name="real_button_cloud_off">云台(关)</string>
+    <string name="video_storage_off">录像(关)</string>
 </resources>

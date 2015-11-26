@@ -2,169 +2,126 @@ package camlebell.com.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.LinearGradient;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import android.os.Handler;
+import android.os.Message;
+import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.handmark.pulltorefresh.library.internal.Utils;
-
-import org.w3c.dom.Text;
-
-import camlebell.com.Utils.Constants;
 import camlebell.com.base.BaseBean;
-import camlebell.com.base.ToolbarBaseActivity;
-import camlebell.com.manager.HttpManager;
-import camlebell.com.model.ResultInfo;
+import camlebell.com.model.LoginBean;
 import camlebell.com.myapplication.R;
 import camlebell.com.net.BaseAsyncHttp;
 import camlebell.com.net.HttpResponseHandler;
 import camlebell.com.net.PackagePostData;
-import cn.yoho.library.util.StrUtil;
-import cn.yoho.yohobase.net.AbstractResponseListener;
+import camlebell.com.preferences.PreferencesContact;
+import camlebell.com.preferences.PreferencesHelper;
+import camlebell.com.preferences.PreferencesUtility;
+
 
 /**
- * @author sunyan
- * 引导界面
  */
+
 public class SplashActivity extends Activity {
-    private LinearLayout vLoginModelLayout;
-    private LinearLayout vLoadingModelLayout;
-    private RelativeLayout vLoginBottomlLayout;
 
-    private TextView vSchoolInputText;
-    private EditText vUserNameEdit;
-    private EditText vPasswordEdit;
-    private Button vLoginButton;
+	public static final int GOTO_SELECTLOGIN = 0;
+	public static final int GOTO_MAIN = 1;
 
-    private String mUserName;
-    private String mPassword;
-    private String appName;
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash);
-        findView();
-        initData();
-        setListener();
-    }
+	private Handler mMainHandler = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			switch (msg.what) {
+			case GOTO_SELECTLOGIN: {
+				Intent intent = new Intent(Intent.ACTION_MAIN);
+				intent.setClass(SplashActivity.this, SelectLoginActivity.class);
+				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+						| Intent.FLAG_ACTIVITY_NEW_TASK);
+				startActivity(intent);
+				finish();
+			}
+				break;
+			case GOTO_MAIN: {
+				Intent intent = new Intent(Intent.ACTION_MAIN);
+				intent.setClass(getApplication(), HomeActivity.class);
+				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+						| Intent.FLAG_ACTIVITY_NEW_TASK);
+				startActivity(intent);
+				finish();
+			}
+				break;
+			default:
+				break;
+			}
 
+		}
+	};
 
-    private void findView() {
-        vLoadingModelLayout = (LinearLayout) findViewById(R.id.loading_model_layout);
-        vLoginModelLayout = (LinearLayout) findViewById(R.id.login_model_layout);
-        vLoginBottomlLayout = (RelativeLayout) findViewById(R.id.login_model_bottom);
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		final View view = View.inflate(this, R.layout.app_start, null);
+		setContentView(view);
+		String userName = PreferencesHelper
+				.getSharedPreferences(SplashActivity.this,
+						PreferencesContact.LOGIN_USERNAME,
+						"");
+		String password = PreferencesHelper
+				.getSharedPreferences(SplashActivity.this,
+						PreferencesContact.LOGIN_PASSWORD,
+						"");
+		if (TextUtils.isEmpty(userName)
+				|| TextUtils.isEmpty(password)) {
+			mMainHandler.sendEmptyMessageDelayed(
+					GOTO_SELECTLOGIN, 2000);
+		} else {
+			login(userName, password);
+		}
+	}
 
-        vSchoolInputText = (TextView) findViewById(R.id.input_school_manager_text);
-        vLoginButton = (Button) findViewById(R.id.login_model_login_button);
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+	}
 
-        vUserNameEdit = (EditText) findViewById(R.id.login_model_user_name_edit);
-        vPasswordEdit = (EditText) findViewById(R.id.login_model_user_passwd_edit_edite);
+	public void login(final String userName, final String passWord) {
+		String json = PackagePostData.signin(userName, passWord);
+		BaseAsyncHttp.postEntity("/login", json, new HttpResponseHandler(
+				LoginBean.class,SplashActivity.this) {
+			@Override
+			public void uiSuccess(BaseBean resp) {
+				LoginBean bean = (LoginBean) resp;
+				PreferencesUtility.setLoginPreferences(SplashActivity.this,
+						bean, passWord);
 
+				mMainHandler.sendEmptyMessageDelayed(GOTO_MAIN, 2000);
+			}
 
-    }
-    private void initData() {
-        showLoginModel(false);
-    }
-    private void setListener() {
-        MyLoginClickListener loginClickListener = new MyLoginClickListener();
-        vSchoolInputText.setOnClickListener(loginClickListener);
-        vLoginButton.setOnClickListener(loginClickListener);
+			@Override
+			public void uiFail(BaseBean resp) {
+				Toast.makeText(SplashActivity.this, resp.resultNote, Toast.LENGTH_SHORT)
+						.show();
+				mMainHandler.sendEmptyMessageDelayed(GOTO_SELECTLOGIN, 2000);
+			}
 
-    }
+			@Override
+			public void uiStart() {
+			}
 
-    /**
-     * 登陆是否显示
-     * @param show
-     */
-    public void showLoginModel(boolean show){
-            if(show){
-                vLoginModelLayout.setVisibility(View.VISIBLE);
-                vLoginButton.setVisibility(View.VISIBLE);
-                vLoadingModelLayout.setVisibility(View.GONE);
-            }else{
-                vLoginModelLayout.setVisibility(View.GONE);
-                vLoginButton.setVisibility(View.GONE);
-                vLoadingModelLayout.setVisibility(View.VISIBLE);
-            }
-    }
+			@Override
+			public void uiFinish() {
+			}
 
-    /**
-     * 请求登陆
-     */
-    public void loginRequest(final String userName, final String passWord) {
-        String json = PackagePostData.signin(userName, passWord);
+		});
+	}
 
-        BaseAsyncHttp.postUrlEntity(Constants.BASE_URL, "",
-                json, new HttpResponseHandler(
-                BaseBean.class, this) {
-            @Override
-            public void uiSuccess(BaseBean resp) {
-//                LoginBean bean = (LoginBean) resp;
-//                PreferencesUtility.setLoginPreferences(SplashActivity.this,
-//                        userName, passWord);
+	@Override
+	public void onBackPressed() {
 
-//                mMainHandler.sendEmptyMessageDelayed(GOTO_MAIN, 2000);
-                Intent intent = new Intent();
-                intent.setClass(SplashActivity.this,HomeActivity.class);
-                startActivity(intent);
-                SplashActivity.this.finish();
-            }
-
-            @Override
-            public void uiFail(BaseBean resp) {
-                Toast.makeText(SplashActivity.this, resp.resultNote, Toast.LENGTH_SHORT)
-                        .show();
-//                mMainHandler.sendEmptyMessageDelayed(GOTO_SELECTLOGIN, 2000);
-            }
-
-            @Override
-            public void uiStart() {
-            }
-
-            @Override
-            public void uiFinish() {
-            }
-
-        });
-    }
+	}
 
 
-    public class MyLoginClickListener implements View.OnClickListener{
 
-        @Override
-        public void onClick(View v) {
-            switch (v.getId()){
-                case R.id.input_school_manager_text:
-                    showLoginModel(true);
-                    break;
-                case R.id.login_model_login_button:
-                    mUserName = vUserNameEdit.getText().toString().trim();
-                    mPassword = vPasswordEdit.getText().toString().trim();
-                    if(StrUtil.isEmpty(mUserName)){
-                        Toast.makeText(SplashActivity.this, "请输入用户名", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-
-                    if(StrUtil.isEmpty(mPassword)){
-                        Toast.makeText(SplashActivity.this, "请输入密码", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                    loginRequest(mUserName, mPassword);
-                    break;
-                default:
-                    break;
-            }
-        }
-    }
 
 
 }

@@ -1,25 +1,17 @@
 package camlebell.com.activity;
 
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
-import android.util.TypedValue;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import camlebell.com.Adapter.AllKindDeviceAdapter;
-import camlebell.com.Adapter.MenuViewPagerAdapter;
 import camlebell.com.Adapter.MonitorAdapter;
 import camlebell.com.base.ToolbarBaseActivity;
 import camlebell.com.fragment.DrawHomeFragment;
-import camlebell.com.model.DeviceInfo;
 import camlebell.com.model.MonitorInfo;
 import camlebell.com.myapplication.R;
-import camlebell.com.widget.PagerSlidingTabStrip;
 
 /**
  * @author sunyan
@@ -42,7 +34,7 @@ public class ManagerMonitorActivity extends ToolbarBaseActivity implements DrawH
 
     @Override
     protected void findViews() {
-        vMonitorListView = findView(R.id.manager_monitor_list);
+//        vMonitorListView = findView(R.id.manager_monitor_list);
     }
 
     @Override
