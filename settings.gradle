@@ -1,1 +1,1 @@
-include ':yohobase', ':yoholibrary', ':app'
+include ':yohobase', ':yoholibrary', ':app', ':materialedittext'

@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/School.iml" filepath="$PROJECT_DIR$/School.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/materialedittext/materialedittext.iml" filepath="$PROJECT_DIR$/materialedittext/materialedittext.iml" />
       <module fileurl="file://$PROJECT_DIR$/yohobase/yohobase.iml" filepath="$PROJECT_DIR$/yohobase/yohobase.iml" />
       <module fileurl="file://$PROJECT_DIR$/yoholibrary/yoholibrary.iml" filepath="$PROJECT_DIR$/yoholibrary/yoholibrary.iml" />
     </modules>
