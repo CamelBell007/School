@@ -248,6 +248,9 @@ public class RealplayActivity extends ToolbarBaseActivity {
 
 	@Override
 	protected void iniData() {
+		setTitle("视频监控");
+
+
 
 	}
 

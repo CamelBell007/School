@@ -61,7 +61,7 @@ public class LoginActivity extends Activity {
 
         BaseAsyncHttp.postUrlEntity(Constants.BASE_URL, "",
                 json, new HttpResponseHandler(
-                        BaseBean.class, this) {
+                        LoginBean.class, this) {
                     @Override
                     public void uiSuccess(BaseBean resp) {
                         LoginBean bean = (LoginBean) resp;
