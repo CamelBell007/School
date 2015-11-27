@@ -28,6 +28,7 @@ public class SelectLoginActivity extends Activity {
     private RelativeLayout vLoginBottomlLayout;
 
     private TextView vSchoolInputText;
+    private TextView vExceptionText;
     private EditText vUserNameEdit;
     private EditText vPasswordEdit;
     private Button vLoginButton;
@@ -51,6 +52,8 @@ public class SelectLoginActivity extends Activity {
         vLoginBottomlLayout = (RelativeLayout) findViewById(R.id.login_model_bottom);
 
         vSchoolInputText = (TextView) findViewById(R.id.input_school_manager_text);
+        vExceptionText = (TextView) findViewById(R.id.input_department_manager_text);
+
         vLoginButton = (Button) findViewById(R.id.login_model_login_button);
 
         vUserNameEdit = (EditText) findViewById(R.id.login_model_user_name_edit);
@@ -65,6 +68,7 @@ public class SelectLoginActivity extends Activity {
         MyLoginClickListener loginClickListener = new MyLoginClickListener();
         //学习管理入口
         vSchoolInputText.setOnClickListener(loginClickListener);
+        vExceptionText.setOnClickListener(loginClickListener);
         vLoginButton.setOnClickListener(loginClickListener);
 
     }
@@ -133,21 +137,9 @@ public class SelectLoginActivity extends Activity {
                     startActivity(intent);
 
                     break;
-                case R.id.login_model_login_button:
-//                    Intent intent = new Intent(SelectLoginActivity.this,LoginActivity.class);
-//                    startActivity(intent);
-//                    mUserName = vUserNameEdit.getText().toString().trim();
-//                    mPassword = vPasswordEdit.getText().toString().trim();
-//                    if(StrUtil.isEmpty(mUserName)){
-//                        Toast.makeText(SelectLoginActivity.this, "请输入用户名", Toast.LENGTH_SHORT).show();
-//                        return;
-//                    }
-//
-//                    if(StrUtil.isEmpty(mPassword)){
-//                        Toast.makeText(SelectLoginActivity.this, "请输入密码", Toast.LENGTH_SHORT).show();
-//                        return;
-//                    }
-//                    loginRequest(mUserName, mPassword);
+                case R.id.input_department_manager_text:
+                    Intent intent2 = new Intent(SelectLoginActivity.this,ExceptionMessageActivity.class);
+                    startActivity(intent2);
                     break;
                 default:
                     break;

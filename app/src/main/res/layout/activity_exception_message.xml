@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/slide_show_driver_line"
     android:orientation="vertical"
     tools:context="camlebell.com.activity.SelectLoginActivity">
 
@@ -10,32 +11,35 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
-        android:orientation="vertical"
+        android:background="@color/home_back"
         android:gravity="bottom"
-        android:background="@color/home_back">
+        android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
-            android:gravity="center"
-            >
+            android:gravity="center">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="您好！"
-                android:textSize="22sp"
-                android:textColor="@color/white">
+                android:textColor="@color/white"
+                android:textSize="22sp">
 
             </TextView>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="来自南京市教育局的领导。"
-                android:textSize="16sp"
-                android:textColor="@color/white">
+                android:textColor="@color/white"
+                android:textSize="16sp">
 
             </TextView>
         </LinearLayout>
+
         <View
             android:layout_width="160dp"
             android:layout_height="6dp"
@@ -47,9 +51,160 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_margin="8dp"
         android:layout_weight="9"
-        >
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="6dp"
+            android:layout_weight="1"
+            android:background="@color/exception_back"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginLeft="40dp"
+                android:text="学校详情查看"
+                android:gravity="center_vertical"
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
+
+            <RelativeLayout
+                android:id="@+id/area_selector_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:background="@android:color/white">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="40dp"
+                    android:gravity="center_vertical"
+                    android:text="鼓楼区"
+                    android:textColor="@color/home_back"
+                    android:textSize="18sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="40dp"
+                    android:textColor="@android:color/black" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/show_or_not_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/one"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="40dp"
+                    android:background="@android:color/white"
+                    android:padding="5dp"
+                    android:text="赤壁路小学"
+                    android:textColor="@android:color/black"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/two"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/one"
+                    android:layout_marginLeft="40dp"
+                    android:text="鼓楼区"
+                    android:textColor="@android:color/black"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/three"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/two"
+                    android:layout_marginLeft="40dp"
+                    android:text="鼓楼区"
+                    android:textColor="@android:color/black"
+                    android:visibility="gone" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/exception_back"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginLeft="40dp"
+                android:text="异常信息提示"
+                android:gravity="center_vertical"
+                android:textColor="@color/slide_driver_line"
+                android:textSize="18sp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                >
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="鼓楼"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/home_back"
+                    android:textSize="18sp" />
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="4"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="20dp"
+                        android:text="赤壁路小学"
+                        android:gravity="center_vertical"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="40dp"
+                        android:text="设备异常提示"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/slide_left_text"
+                        android:textSize="14sp" />
+                </LinearLayout>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="40dp"
+                    android:text="1条"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/slide_driver_line"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </LinearLayout>
 
     </LinearLayout>
-
 </LinearLayout>

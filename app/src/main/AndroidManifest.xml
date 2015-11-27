@@ -114,7 +114,8 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
         <activity
             android:name="camlebell.com.wmclient.RealplayActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:launchMode="singleTask"></activity>
 
         <activity
             android:name="camlebell.com.wmclient.DeviceActivity"
