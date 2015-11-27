@@ -74,6 +74,7 @@
                 android:layout_marginLeft="40dp"
                 android:textColor="@android:color/black"
                 android:text="学校详情查看"
+                android:textSize="18sp"
                 />
             <RelativeLayout
                 android:id="@+id/area_selector_layout"
@@ -87,7 +88,7 @@
                     android:layout_height="20dp"
                     android:layout_marginLeft="40dp"
                     android:textColor="@android:color/black"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:text="鼓楼区"
                     />
                 <ImageView
