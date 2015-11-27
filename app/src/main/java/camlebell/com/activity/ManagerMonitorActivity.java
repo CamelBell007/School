@@ -40,16 +40,17 @@ public class ManagerMonitorActivity extends ToolbarBaseActivity implements DrawH
         fm = getSupportFragmentManager();
 //        vMonitorListView = findView(R.id.fragmentContainer);
         fragment = fm.findFragmentById(R.id.fragmentContainer);
-    }
-
-    @Override
-    protected void iniData() {
-        setTitle("视频监控");
         if (fragment == null) {
             fragment = new VideoFragment();
             fm.beginTransaction().add(R.id.fragmentContainer, fragment)
                     .commit();
         }
+    }
+
+    @Override
+    protected void iniData() {
+        setTitle("视频监控");
+
     }
 
 
