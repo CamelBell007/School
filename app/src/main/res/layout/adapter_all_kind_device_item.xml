@@ -51,9 +51,9 @@
 
         <ImageView
             android:id="@+id/show_icon"
-            android:layout_width="0dp"
+            android:layout_marginRight="12dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:background="@mipmap/ic_arrow"
              />
     </LinearLayout>
